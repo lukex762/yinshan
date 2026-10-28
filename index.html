@@ -3,2395 +3,1828 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alpha的技术博客 | 虚拟现实开发 · 数字孪生 · 小游戏开发</title>
-    <meta name="description" content="Alpha的技术博客 - 专业的虚拟现实开发、工业数字孪生、小游戏开发、小程序开发与技术培训服务。服务广告、影视、大学、企业、军工、银行等行业客户。">
-    <meta name="keywords" content="小游戏,虚拟现实,培训,高斯泼溅,数字孪生,VR开发,小程序开发">
-    <meta name="author" content="Alpha的技术博客">
-    
-    <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>A</text></svg>">
-    
-    <!-- 字体 -->
-    <link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
-    
+    <title>邓晓军 | 平面设计师 · 曼联铁粉</title>
+    <meta name="description" content="邓晓军 - 视觉传达设计方向学生，专注 UI/UX 设计、品牌视觉、排版与响应式网页。红魔精神，像素人生。">
+    <meta name="keywords" content="邓晓军,平面设计,UI设计,UX设计,品牌视觉,Figma,排版设计,曼联,视觉传达">
+    <meta name="author" content="邓晓军">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔴</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+
     <style>
-        /* ===== CSS Variables ===== */
         :root {
-            --color-primary: #0F172A;
-            --color-primary-light: #1E293B;
-            --color-accent: #06B6D4;
-            --color-accent-dark: #0891B2;
-            --color-accent-light: #67E8F9;
-            --color-bg: #FF0000;
-            --color-white: #FFFFFF;
-            --color-text: #1E293B;
-            --color-text-secondary: #64748B;
-            --color-border: #E2E8F0;
-            --color-success: #10B981;
-            --gradient-accent: linear-gradient(135deg, #06B6D4 0%, #3B82F6 100%);
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            --radius-sm: 6px;
-            --radius-md: 12px;
-            --radius-lg: 20px;
-            --container-max: 1200px;
+            --bg-deep: #0A0E17;
+            --bg-card: #111622;
+            --bg-card-hover: #161C2C;
+            --manchester-red: #DA020E;
+            --manchester-red-glow: rgba(218, 2, 14, 0.6);
+            --tech-blue: #00F0FF;
+            --tech-blue-glow: rgba(0, 240, 255, 0.5);
+            --text-primary: #FFFFFF;
+            --text-secondary: #8B95A7;
+            --text-muted: #4A5568;
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-glow: rgba(218, 2, 14, 0.3);
+            --gradient-hero: linear-gradient(135deg, #DA020E 0%, #00F0FF 100%);
+            --font-sans: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
         }
 
-        /* ===== Reset & Base ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        html {
-            scroll-behavior: smooth;
+        html, body {
+            background: var(--bg-deep);
         }
 
         body {
-            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            color: var(--color-text);
-            background-color: var(--color-bg);
+            font-family: var(--font-sans);
+            color: var(--text-primary);
             line-height: 1.6;
-            font-size: 16px;
+            overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .container {
-            max-width: var(--container-max);
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
-        /* ===== Buttons ===== */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 14px 28px;
-            border-radius: var(--radius-sm);
-            font-weight: 600;
-            font-size: 16px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-            font-family: inherit;
-        }
-
-        .btn-primary {
-            background: var(--gradient-accent);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(6, 182, 212, 0.3);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--color-white);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--color-white);
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--color-accent);
-            border: 2px solid var(--color-accent);
-        }
-
-        .btn-outline:hover {
-            background: var(--color-accent);
-            color: white;
-        }
-
-        /* ===== Header ===== */
-        .header {
+        #particles-canvas {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
         }
 
-        .header-inner {
+        .cursor-glow {
+            position: fixed;
+            width: 400px; height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(218, 2, 14, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+        }
+
+        /* ===== SPA View Logic ===== */
+        .view {
+            position: relative;
+            z-index: 2;
+            display: none;
+            animation: viewIn 0.5s cubic-bezier(.2,.7,.2,1);
+        }
+        .view.active { display: block; }
+
+        @keyframes viewIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== Navigation ===== */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 20px 48px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 72px;
+            background: rgba(10, 14, 23, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
         }
 
-        .logo {
+        .nav-logo {
             display: flex;
             align-items: center;
-            gap: 10px;
-            color: white;
+            gap: 12px;
+            font-family: var(--font-mono);
             font-weight: 700;
-            font-size: 20px;
-        }
-
-        .logo-icon {
-            width: 36px;
-            height: 36px;
-            background: var(--gradient-accent);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'JetBrains Mono', monospace;
             font-size: 18px;
-            font-weight: 700;
-        }
-
-        .nav {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-        }
-
-        .nav-link {
-            color: rgba(255, 255, 255, 0.8);
-            font-weight: 500;
-            font-size: 15px;
-            transition: color 0.3s ease;
+            letter-spacing: -0.02em;
             cursor: pointer;
         }
 
-        .nav-link:hover,
-        .nav-link.active {
-            color: var(--color-accent-light);
+        .nav-logo-dot {
+            width: 10px; height: 10px;
+            background: var(--manchester-red);
+            border-radius: 50%;
+            box-shadow: 0 0 12px var(--manchester-red-glow);
+            animation: pulse 2s ease-in-out infinite;
         }
 
-        .header-cta {
-            padding: 10px 20px;
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.85); }
+        }
+
+        .nav-logo span { color: var(--text-primary); }
+        .nav-logo .accent { color: var(--manchester-red); }
+
+        .nav-links {
+            display: flex;
+            gap: 36px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
             font-size: 14px;
-        }
-
-        /* Mobile Menu Toggle */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 8px;
-        }
-
-        .menu-toggle span {
-            width: 24px;
-            height: 2px;
-            background: white;
-            transition: all 0.3s ease;
-        }
-
-        /* Mobile Nav */
-        .mobile-nav {
-            position: fixed;
-            top: 72px;
-            left: 0;
-            right: 0;
-            background: var(--color-primary);
-            padding: 24px;
-            transform: translateY(-100%);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 999;
-        }
-
-        .mobile-nav.open {
-            transform: translateY(0);
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .mobile-nav-link {
-            display: block;
-            color: rgba(255, 255, 255, 0.9);
-            padding: 16px 0;
-            font-size: 18px;
             font-weight: 500;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            letter-spacing: 0.02em;
+            transition: color 0.25s ease;
+            position: relative;
             cursor: pointer;
         }
 
-        .mobile-nav-link:last-child {
-            border-bottom: none;
-        }
-
-        /* ===== Page Views ===== */
-        .page {
-            display: none;
-            min-height: 100vh;
-            padding-top: 72px;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        /* ===== Hero Section ===== */
-        .hero {
-            background: var(--color-primary);
-            color: white;
-            padding: 120px 0 100px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
+        .nav-links a::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+            bottom: -6px; left: 0;
+            width: 0; height: 1px;
+            background: var(--manchester-red);
+            transition: width 0.3s ease;
         }
 
-        .hero-content {
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a.active { color: var(--text-primary); }
+        .nav-links a.active::after { width: 100%; }
+
+        .nav-cta {
+            padding: 10px 22px;
+            background: transparent;
+            border: 1px solid var(--manchester-red);
+            color: var(--manchester-red);
+            border-radius: 6px;
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--manchester-red);
+            box-shadow: 0 0 24px var(--manchester-red-glow);
+            transform: translateY(-1px);
+        }
+
+        .nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+        .nav-toggle span { display: block; width: 24px; height: 2px; background: white; margin: 5px 0; transition: all 0.3s; }
+
+        /* ===== Hero View ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 48px 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 60px;
+        }
+
+        .hero-left {
+            flex: 1;
+            max-width: 620px;
+        }
+
+        .hero-right {
+            flex: 1;
             position: relative;
-            z-index: 1;
-            max-width: 800px;
+            height: 560px;
+            min-width: 0;
         }
 
-        .hero-badge {
+        #three-container {
+            width: 100%; height: 100%;
+            position: relative;
+        }
+
+        .tag-pill {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 8px 16px;
-            background: rgba(6, 182, 212, 0.1);
-            border: 1px solid rgba(6, 182, 212, 0.3);
+            padding: 8px 18px;
+            background: rgba(218, 2, 14, 0.08);
+            border: 1px solid rgba(218, 2, 14, 0.25);
             border-radius: 100px;
-            font-size: 14px;
-            color: var(--color-accent-light);
-            margin-bottom: 24px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--manchester-red);
+            margin-bottom: 32px;
+            backdrop-filter: blur(10px);
         }
 
-        .hero h1 {
-            font-size: clamp(36px, 5vw, 56px);
+        .tag-pill .bolt { font-size: 14px; }
+
+        .hero-title {
+            font-size: clamp(42px, 6vw, 72px);
             font-weight: 900;
-            line-height: 1.2;
-            margin-bottom: 24px;
-            letter-spacing: -0.02em;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 8px;
         }
 
-        .hero h1 .highlight {
-            background: var(--gradient-accent);
+        .hero-title .gradient {
+            background: var(--gradient-hero);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .hero p {
-            font-size: 18px;
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 40px;
-            max-width: 600px;
-            line-height: 1.8;
+        .hero-subtitle {
+            font-size: clamp(20px, 2.5vw, 28px);
+            font-weight: 700;
+            margin-bottom: 24px;
+            letter-spacing: -0.01em;
         }
 
-        .hero-buttons {
+        .hero-desc {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 32px;
+            max-width: 520px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .skill-tag {
+            padding: 7px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .skill-tag:hover {
+            border-color: var(--manchester-red);
+            color: var(--manchester-red);
+            background: rgba(218, 2, 14, 0.06);
+            transform: translateY(-2px);
+        }
+
+        .hero-ctas {
             display: flex;
             gap: 16px;
             flex-wrap: wrap;
         }
 
-        /* Trust Bar */
-        .trust-bar {
-            background: var(--color-primary-light);
-            padding: 32px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .trust-items {
-            display: flex;
-            justify-content: space-between;
+        .btn {
+            display: inline-flex;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 24px;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            font-family: var(--font-sans);
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            background: var(--manchester-red);
+            color: white;
         }
 
-        .trust-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 14px;
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px var(--manchester-red-glow);
         }
 
-        .trust-item svg {
-            width: 20px;
-            height: 20px;
-            color: var(--color-accent);
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: none;
         }
 
-        /* ===== Section Common ===== */
-        .section {
-            padding: 100px 0;
+        .btn-outline:hover {
+            border-color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.04);
+            box-shadow: none;
+            transform: translateY(-3px);
         }
 
-        .section-header {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 64px;
+        .btn .arrow { transition: transform 0.3s ease; }
+        .btn:hover .arrow { transform: translateX(4px); }
+
+        .halo {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        .halo-red {
+            width: 300px; height: 300px;
+            background: var(--manchester-red);
+            top: 20%; left: 10%;
+            opacity: 0.25;
+        }
+        .halo-blue {
+            width: 250px; height: 250px;
+            background: var(--tech-blue);
+            bottom: 10%; right: 10%;
+            opacity: 0.15;
         }
 
-        .section-label {
-            display: inline-block;
-            padding: 6px 14px;
-            background: rgba(6, 182, 212, 0.1);
-            color: var(--color-accent-dark);
-            border-radius: 100px;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 16px;
+        /* ===== Common View Layout ===== */
+        .view-body {
+            padding: 140px 48px 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: 100vh;
         }
 
-        .section-title {
-            font-size: clamp(28px, 4vw, 40px);
+        .block-header {
+            margin-bottom: 56px;
+        }
+
+        .block-label {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--manchester-red);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .block-title {
+            font-size: clamp(32px, 4vw, 48px);
             font-weight: 800;
-            color: var(--color-primary);
-            margin-bottom: 16px;
+            letter-spacing: -0.02em;
             line-height: 1.2;
         }
 
-        .section-desc {
-            font-size: 16px;
-            color: var(--color-text-secondary);
-            line-height: 1.8;
-        }
-
-        /* ===== Core Advantages ===== */
-        .advantages-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-        }
-
-        .advantage-card {
-            padding: 40px 32px;
-            background: white;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--color-border);
-            transition: all 0.3s ease;
-        }
-
-        .advantage-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--color-accent);
-        }
-
-        .advantage-icon {
-            width: 56px;
-            height: 56px;
-            background: var(--gradient-accent);
-            border-radius: var(--radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 24px;
-        }
-
-        .advantage-icon svg {
-            width: 28px;
-            height: 28px;
-            color: white;
-        }
-
-        .advantage-card h3 {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--color-primary);
-            margin-bottom: 12px;
-        }
-
-        .advantage-card p {
-            color: var(--color-text-secondary);
-            line-height: 1.7;
-        }
-
-        /* ===== Services Preview ===== */
-        .services-preview {
-            background: white;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-
-        .service-card {
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            background: var(--color-bg);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .service-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .service-card-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .service-card-content {
-            padding: 24px;
-        }
-
-        .service-card-tag {
-            display: inline-block;
-            padding: 4px 10px;
-            background: rgba(6, 182, 212, 0.1);
-            color: var(--color-accent-dark);
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 500;
-            margin-bottom: 12px;
-        }
-
-        .service-card h3 {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--color-primary);
-            margin-bottom: 8px;
-        }
-
-        .service-card p {
-            font-size: 14px;
-            color: var(--color-text-secondary);
-            line-height: 1.6;
-        }
-
-        /* ===== Testimonials ===== */
-        .testimonials {
-            background: var(--color-primary);
-            color: white;
-        }
-
-        .testimonials .section-title {
-            color: white;
-        }
-
-        .testimonials .section-desc {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-
-        .testimonial-card {
-            padding: 32px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: var(--radius-md);
-        }
-
-        .testimonial-stars {
-            display: flex;
-            gap: 4px;
-            margin-bottom: 16px;
-        }
-
-        .testimonial-stars svg {
-            width: 16px;
-            height: 16px;
-            color: #FBBF24;
-            fill: #FBBF24;
-        }
-
-        .testimonial-text {
-            font-size: 15px;
-            line-height: 1.8;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 24px;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .testimonial-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: var(--gradient-accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 16px;
-        }
-
-        .testimonial-name {
-            font-weight: 600;
-            font-size: 15px;
-        }
-
-        .testimonial-role {
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        /* ===== About Preview ===== */
-        .about-preview-grid {
+        /* ===== About View ===== */
+        .about-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 64px;
-            align-items: center;
+            gap: 80px;
+            align-items: start;
+            margin-top: 40px;
         }
 
-        .about-preview-image {
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            box-shadow: var(--shadow-xl);
-        }
-
-        .about-preview-image img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-        }
-
-        .about-preview-content h2 {
-            font-size: clamp(28px, 3vw, 36px);
+        .about-text h2 {
+            font-size: clamp(28px, 3.5vw, 40px);
             font-weight: 800;
-            color: var(--color-primary);
-            margin-bottom: 20px;
-            line-height: 1.3;
+            letter-spacing: -0.02em;
+            margin-bottom: 28px;
+            line-height: 1.2;
         }
 
-        .about-preview-content p {
-            color: var(--color-text-secondary);
-            line-height: 1.8;
-            margin-bottom: 24px;
+        .about-text p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .about-text p strong {
+            color: var(--text-primary);
         }
 
         .about-stats {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 24px;
-            margin-top: 32px;
+            margin-top: 40px;
+            padding: 32px 0;
+            border-top: 1px solid var(--border-subtle);
+            border-bottom: 1px solid var(--border-subtle);
         }
 
-        .stat-item h4 {
-            font-size: 32px;
+        .stat-num {
+            font-family: var(--font-mono);
+            font-size: 48px;
             font-weight: 800;
-            color: var(--color-accent-dark);
-            font-family: 'JetBrains Mono', monospace;
+            line-height: 1;
+            background: var(--gradient-hero);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .stat-item p {
-            font-size: 14px;
-            color: var(--color-text-secondary);
-            margin: 0;
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 10px;
+            letter-spacing: 0.02em;
         }
 
-        /* ===== Final CTA ===== */
-        .final-cta {
-            background: var(--gradient-accent);
-            padding: 80px 0;
-            text-align: center;
-        }
-
-        .final-cta h2 {
-            font-size: clamp(28px, 4vw, 40px);
-            font-weight: 800;
-            color: white;
-            margin-bottom: 16px;
-        }
-
-        .final-cta p {
-            font-size: 18px;
-            color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 32px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .final-cta .btn {
-            background: white;
-            color: var(--color-accent-dark);
-        }
-
-        .final-cta .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        }
-
-        /* ===== Footer ===== */
-        .footer {
-            background: var(--color-primary);
-            color: rgba(255, 255, 255, 0.7);
-            padding: 64px 0 24px;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 48px;
-            margin-bottom: 48px;
-        }
-
-        .footer-brand p {
-            margin-top: 16px;
-            font-size: 14px;
-            line-height: 1.7;
-            max-width: 300px;
-        }
-
-        .footer-col h4 {
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
-        .footer-col ul li {
-            margin-bottom: 12px;
-        }
-
-        .footer-col ul li a {
-            font-size: 14px;
-            transition: color 0.3s ease;
-            cursor: pointer;
-        }
-
-        .footer-col ul li a:hover {
-            color: var(--color-accent-light);
-        }
-
-        .footer-bottom {
-            padding-top: 24px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-            font-size: 14px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 16px;
-        }
-
-        .social-links a {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background: var(--color-accent);
-        }
-
-        .social-links svg {
-            width: 18px;
-            height: 18px;
-            color: white;
-        }
-
-        /* ===== About Page ===== */
-        .page-hero {
-            background: var(--color-primary);
-            color: white;
-            padding: 80px 0;
-            text-align: center;
-        }
-
-        .page-hero h1 {
-            font-size: clamp(32px, 4vw, 48px);
-            font-weight: 800;
-            margin-bottom: 16px;
-        }
-
-        .page-hero p {
-            font-size: 18px;
-            color: rgba(255, 255, 255, 0.7);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .story-section {
-            padding: 100px 0;
-        }
-
-        .story-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 64px;
-            align-items: center;
-        }
-
-        .story-image {
-            border-radius: var(--radius-lg);
+        .about-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 40px;
+            position: relative;
             overflow: hidden;
         }
 
-        .story-image img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: var(--gradient-hero);
+            opacity: 0.6;
         }
 
-        .mission-section {
-            background: white;
-            padding: 100px 0;
-        }
-
-        .mission-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 32px;
-        }
-
-        .mission-card {
-            padding: 32px;
-            border-radius: var(--radius-md);
-            background: var(--color-bg);
-            border-left: 4px solid var(--color-accent);
-        }
-
-        .mission-card h3 {
-            font-size: 20px;
+        .about-card h3 {
+            font-size: 18px;
             font-weight: 700;
-            color: var(--color-primary);
-            margin-bottom: 12px;
-        }
-
-        .mission-card p {
-            color: var(--color-text-secondary);
-            line-height: 1.7;
-        }
-
-        .differentiators {
-            padding: 100px 0;
-        }
-
-        .diff-list {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .diff-item {
-            display: flex;
-            gap: 24px;
-            padding: 32px 0;
-            border-bottom: 1px solid var(--color-border);
-        }
-
-        .diff-item:last-child {
-            border-bottom: none;
-        }
-
-        .diff-number {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--color-accent);
-            min-width: 48px;
-        }
-
-        .diff-content h3 {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--color-primary);
-            margin-bottom: 8px;
-        }
-
-        .diff-content p {
-            color: var(--color-text-secondary);
-            line-height: 1.7;
-        }
-
-        /* ===== Services Page ===== */
-        .services-page-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-        }
-
-        .service-detail-card {
-            padding: 40px 32px;
-            background: white;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--color-border);
-            transition: all 0.3s ease;
-        }
-
-        .service-detail-card:hover {
-            box-shadow: var(--shadow-lg);
-            border-color: var(--color-accent);
-        }
-
-        .service-detail-icon {
-            width: 64px;
-            height: 64px;
-            background: var(--gradient-accent);
-            border-radius: var(--radius-sm);
+            margin-bottom: 28px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin-bottom: 24px;
-        }
-
-        .service-detail-icon svg {
-            width: 32px;
-            height: 32px;
-            color: white;
-        }
-
-        .service-detail-card h3 {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--color-primary);
-            margin-bottom: 12px;
-        }
-
-        .service-detail-card p {
-            color: var(--color-text-secondary);
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-
-        .service-features {
-            display: flex;
-            flex-direction: column;
             gap: 10px;
         }
 
-        .service-feature {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            color: var(--color-text);
+        .timeline { position: relative; padding-left: 28px; }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px; top: 8px; bottom: 8px;
+            width: 1px;
+            background: linear-gradient(180deg, var(--manchester-red) 0%, transparent 100%);
+            opacity: 0.4;
         }
 
-        .service-feature svg {
-            width: 16px;
-            height: 16px;
-            color: var(--color-success);
-            flex-shrink: 0;
-        }
-
-        /* Process Steps */
-        .process-section {
-            background: white;
-            padding: 100px 0;
-        }
-
-        .process-steps {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 32px;
+        .timeline-item {
             position: relative;
+            padding: 0 0 28px 16px;
         }
 
-        .process-step {
-            text-align: center;
-            position: relative;
-        }
-
-        .step-number {
-            width: 64px;
-            height: 64px;
-            background: var(--gradient-accent);
-            color: white;
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -25px; top: 6px;
+            width: 10px; height: 10px;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            font-weight: 700;
-            margin: 0 auto 20px;
-            font-family: 'JetBrains Mono', monospace;
+            background: var(--manchester-red);
+            box-shadow: 0 0 0 3px rgba(218, 2, 14, 0.15);
         }
 
-        .process-step h3 {
-            font-size: 18px;
+        .timeline-item:last-child { padding-bottom: 0; }
+        .timeline-item:last-child::before { background: var(--tech-blue); box-shadow: 0 0 0 3px rgba(0,240,255,0.15); }
+
+        .tl-year {
+            font-family: var(--font-mono);
+            font-size: 13px;
             font-weight: 700;
-            color: var(--color-primary);
-            margin-bottom: 8px;
+            color: var(--manchester-red);
+            letter-spacing: 0.05em;
+            margin-bottom: 6px;
         }
 
-        .process-step p {
-            font-size: 14px;
-            color: var(--color-text-secondary);
+        .tl-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .tl-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
             line-height: 1.6;
         }
 
-        /* FAQ */
-        .faq-section {
-            padding: 100px 0;
-        }
-
-        .faq-list {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-md);
-            margin-bottom: 16px;
-            overflow: hidden;
-            background: white;
-        }
-
-        .faq-question {
-            padding: 20px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--color-primary);
-        }
-
-        .faq-question:hover {
-            background: var(--color-bg);
-        }
-
-        .faq-toggle {
-            width: 24px;
-            height: 24px;
-            transition: transform 0.3s ease;
-        }
-
-        .faq-item.open .faq-toggle {
-            transform: rotate(45deg);
-        }
-
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .faq-item.open .faq-answer {
-            max-height: 300px;
-        }
-
-        .faq-answer p {
-            padding: 0 24px 20px;
-            color: var(--color-text-secondary);
-            line-height: 1.7;
-        }
-
-        /* ===== Portfolio Page ===== */
-        .portfolio-filter {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 48px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 10px 20px;
-            border: 1px solid var(--color-border);
-            background: white;
-            border-radius: 100px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--color-text-secondary);
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-
-        .filter-btn:hover,
-        .filter-btn.active {
-            background: var(--color-primary);
-            color: white;
-            border-color: var(--color-primary);
-        }
-
-        .portfolio-grid {
+        /* ===== Skills Grid ===== */
+        .skills-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 24px;
+            margin-top: 40px;
         }
 
-        .portfolio-card {
-            border-radius: var(--radius-md);
+        .skill-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 36px;
+            transition: all 0.4s ease;
+            position: relative;
             overflow: hidden;
-            background: white;
-            border: 1px solid var(--color-border);
-            transition: all 0.3s ease;
         }
 
-        .portfolio-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
+        .skill-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 50%), rgba(218, 2, 14, 0.08), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
         }
 
-        .portfolio-card-image {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
+        .skill-card:hover {
+            border-color: rgba(218, 2, 14, 0.3);
+            transform: translateY(-6px);
         }
 
-        .portfolio-card-content {
-            padding: 24px;
+        .skill-card:hover::after { opacity: 1; }
+
+        .skill-icon {
+            width: 48px; height: 48px;
+            background: rgba(218, 2, 14, 0.1);
+            border: 1px solid rgba(218, 2, 14, 0.2);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 22px;
+            margin-bottom: 20px;
         }
 
-        .portfolio-category {
-            display: inline-block;
-            padding: 4px 10px;
-            background: rgba(6, 182, 212, 0.1);
-            color: var(--color-accent-dark);
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 500;
-            margin-bottom: 12px;
-        }
-
-        .portfolio-card h3 {
+        .skill-card h3 {
             font-size: 18px;
             font-weight: 700;
-            color: var(--color-primary);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
-        .portfolio-card p {
+        .skill-card p {
             font-size: 14px;
-            color: var(--color-text-secondary);
-            line-height: 1.6;
-        }
-
-        /* ===== Contact Page ===== */
-        .contact-section {
-            padding: 100px 0;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 64px;
-        }
-
-        .contact-info h3 {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--color-primary);
-            margin-bottom: 16px;
-        }
-
-        .contact-info > p {
-            color: var(--color-text-secondary);
+            color: var(--text-secondary);
             line-height: 1.7;
-            margin-bottom: 32px;
         }
 
-        .contact-details {
+        .skill-bar {
+            margin-top: 18px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 100px;
+            overflow: hidden;
+        }
+        .skill-bar-fill {
+            height: 100%;
+            background: var(--gradient-hero);
+            border-radius: 100px;
+            transition: width 1.2s cubic-bezier(.4,0,.2,1);
+            width: 0;
+        }
+        .view.active .skill-bar-fill { width: var(--target-w, 80%); }
+
+        /* ===== Projects Grid ===== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+            margin-top: 40px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            border-color: rgba(218, 2, 14, 0.4);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px -20px rgba(218, 2, 14, 0.3);
+        }
+
+        .project-thumb {
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(135deg, #1a1f2e 0%, #0A0E17 100%);
+            position: relative;
+            overflow: hidden;
             display: flex;
-            flex-direction: column;
-            gap: 24px;
-            margin-bottom: 32px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-thumb::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(45deg, transparent 40%, rgba(218, 2, 14, 0.15) 50%, transparent 60%),
+                radial-gradient(circle at 30% 30%, rgba(0, 240, 255, 0.1), transparent 50%);
+        }
+
+        .project-thumb .code {
+            font-family: var(--font-mono);
+            font-size: 48px;
+            font-weight: 700;
+            color: rgba(218, 2, 14, 0.3);
+            z-index: 1;
+        }
+
+        .project-info {
+            padding: 28px;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+        }
+
+        .project-tag {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            padding: 4px 10px;
+            background: rgba(218, 2, 14, 0.08);
+            color: var(--manchester-red);
+            border-radius: 4px;
+            letter-spacing: 0.05em;
+        }
+
+        .project-info h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .project-info p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .project-link {
+            margin-top: 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--manchester-red);
+            font-size: 13px;
+            font-weight: 600;
+            font-family: var(--font-mono);
+            transition: gap 0.3s ease;
+        }
+
+        .project-card:hover .project-link { gap: 12px; }
+
+        /* ===== Contact View ===== */
+        .contact-wrap {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
         }
 
         .contact-item {
             display: flex;
-            gap: 16px;
-            align-items: flex-start;
+            gap: 18px;
+            padding: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 14px;
+            transition: all 0.3s ease;
+            margin-bottom: 16px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .contact-item:hover {
+            border-color: rgba(218, 2, 14, 0.35);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px -20px rgba(218, 2, 14, 0.4);
         }
 
         .contact-icon {
-            width: 48px;
-            height: 48px;
-            background: rgba(6, 182, 212, 0.1);
-            border-radius: var(--radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 44px; height: 44px;
+            background: rgba(218, 2, 14, 0.1);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
             flex-shrink: 0;
         }
 
-        .contact-icon svg {
-            width: 24px;
-            height: 24px;
-            color: var(--color-accent-dark);
-        }
+        .contact-item h4 { font-size: 15px; margin-bottom: 4px; }
+        .contact-item p { font-size: 14px; color: var(--text-secondary); font-family: var(--font-mono); }
 
-        .contact-item h4 {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--color-primary);
-            margin-bottom: 4px;
-        }
-
-        .contact-item p {
-            font-size: 14px;
-            color: var(--color-text-secondary);
-        }
-
-        .contact-form {
-            background: white;
+        .contact-side {
             padding: 40px;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--color-border);
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+        .contact-side::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(400px circle at 80% 20%, rgba(218,2,14,0.12), transparent 60%);
+            pointer-events: none;
+        }
+        .contact-side h3 { font-size: 22px; font-weight: 800; margin-bottom: 14px; }
+        .contact-side p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px; }
+
+        /* ===== Footer (always visible) ===== */
+        footer {
+            position: relative;
+            z-index: 10;
+            border-top: 1px solid var(--border-subtle);
+            padding: 28px 48px;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
         }
 
-        .form-group {
-            margin-bottom: 20px;
+        .footer-left {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--text-muted);
         }
 
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+        .footer-left .heart {
+            color: var(--manchester-red);
+            display: inline-block;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .footer-links {
+            display: flex;
             gap: 20px;
         }
 
-        .form-label {
-            display: block;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--color-primary);
-            margin-bottom: 8px;
+        .footer-links a {
+            color: var(--text-secondary);
+            font-size: 13px;
+            text-decoration: none;
+            transition: color 0.25s;
         }
 
-        .form-input,
-        .form-textarea {
-            width: 100%;
-            padding: 14px 16px;
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-sm);
-            font-size: 16px;
-            font-family: inherit;
-            color: var(--color-text);
-            transition: border-color 0.3s ease;
-        }
-
-        .form-input:focus,
-        .form-textarea:focus {
-            outline: none;
-            border-color: var(--color-accent);
-            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
-        }
-
-        .form-textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        .map-placeholder {
-            margin-top: 64px;
-            height: 300px;
-            background: linear-gradient(135deg, #E2E8F0 0%, #CBD5E1 100%);
-            border-radius: var(--radius-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--color-text-secondary);
-            font-size: 16px;
-        }
+        .footer-links a:hover { color: var(--manchester-red); }
 
         /* ===== Responsive ===== */
         @media (max-width: 1024px) {
-            .advantages-grid,
-            .services-grid,
-            .testimonials-grid,
-            .services-page-grid,
-            .portfolio-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .process-steps {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 48px;
-            }
-
-            .footer-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            .hero { flex-direction: column; padding-top: 100px; }
+            .hero-left, .hero-right { max-width: 100%; width: 100%; }
+            .hero-right { height: 420px; }
+            .view-body { padding: 110px 32px 60px; }
+            .about-grid { grid-template-columns: 1fr; gap: 40px; }
+            .skills-grid { grid-template-columns: repeat(2, 1fr); }
+            .projects-grid { grid-template-columns: 1fr; }
+            .contact-wrap { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 768px) {
-            .nav {
+            .nav { padding: 16px 24px; }
+            .nav-links {
                 display: none;
-            }
-
-            .header-cta {
-                display: none;
-            }
-
-            .menu-toggle {
-                display: flex;
-            }
-
-            .hero {
-                padding: 80px 0 60px;
-            }
-
-            .advantages-grid,
-            .services-grid,
-            .testimonials-grid,
-            .services-page-grid,
-            .portfolio-grid,
-            .about-preview-grid,
-            .story-grid,
-            .mission-grid,
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .process-steps {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 32px;
-            }
-
-            .section {
-                padding: 60px 0;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-form {
-                padding: 24px;
-            }
-
-            .trust-items {
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 0 16px;
-            }
-
-            .hero-buttons {
+                position: absolute; top: 72px; left: 0; right: 0;
                 flex-direction: column;
+                background: var(--bg-deep);
+                padding: 24px;
+                border-top: 1px solid var(--border-subtle);
+                gap: 20px;
             }
-
-            .hero-buttons .btn {
-                width: 100%;
-            }
+            .nav-links.open { display: flex; }
+            .nav-cta { display: none; }
+            .nav-toggle { display: block; }
+            .hero { padding: 90px 24px 40px; gap: 30px; min-height: auto; }
+            .hero-right { height: 320px; }
+            .view-body { padding: 100px 24px 50px; }
+            .skills-grid { grid-template-columns: 1fr; }
+            .about-stats { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+            .stat-num { font-size: 32px; }
+            footer { padding: 24px; flex-direction: column; text-align: center; }
+            .hero-ctas .btn { width: 100%; justify-content: center; }
         }
 
-        /* Toast */
-        .toast {
-            position: fixed;
-            bottom: 32px;
-            right: 32px;
-            padding: 16px 24px;
-            background: var(--color-primary);
-            color: white;
-            border-radius: var(--radius-sm);
-            box-shadow: var(--shadow-xl);
-            transform: translateY(100px);
-            opacity: 0;
-            transition: all 0.3s ease;
-            z-index: 2000;
-        }
-
-        .toast.show {
-            transform: translateY(0);
-            opacity: 1;
+        @media (prefers-reduced-motion: reduce) {
+            * { animation: none !important; transition: none !important; }
         }
     </style>
 </head>
 <body>
 
-<!-- ===== Header ===== -->
-<header class="header">
-    <div class="container">
-        <div class="header-inner">
-            <a class="logo" onclick="navigate('home')">
-                <div class="logo-icon">A</div>
-                <span>Alpha的技术博客</span>
-            </a>
-            <nav class="nav">
-                <a class="nav-link active" data-page="home" onclick="navigate('home')">首页</a>
-                <a class="nav-link" data-page="about" onclick="navigate('about')">关于我们</a>
-                <a class="nav-link" data-page="services" onclick="navigate('services')">服务</a>
-                <a class="nav-link" data-page="portfolio" onclick="navigate('portfolio')">作品集</a>
-                <a class="nav-link" data-page="contact" onclick="navigate('contact')">联系我们</a>
-            </nav>
-            <button class="btn btn-primary header-cta" onclick="navigate('contact')">免费咨询</button>
-            <div class="menu-toggle" onclick="toggleMobileMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
+<canvas id="particles-canvas"></canvas>
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- Navigation -->
+<nav class="nav">
+    <div class="nav-logo" onclick="switchView('home')">
+        <div class="nav-logo-dot"></div>
+        <span>deng<span class="accent">.</span>xrj</span>
+    </div>
+    <ul class="nav-links" id="navLinks">
+        <li><a data-view="home" onclick="switchView('home')">首页</a></li>
+        <li><a data-view="about" onclick="switchView('about')">关于</a></li>
+        <li><a data-view="skills" onclick="switchView('skills')">技能</a></li>
+        <li><a data-view="projects" onclick="switchView('projects')">项目</a></li>
+        <li><a data-view="contact" onclick="switchView('contact')">联系</a></li>
+    </ul>
+    <button class="nav-cta" onclick="switchView('contact')">Get in touch</button>
+    <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="menu">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+
+<!-- View: Home (Hero only) -->
+<section class="view active" id="view-home">
+    <div class="hero">
+        <div class="hero-left">
+            <div class="tag-pill"><span class="bolt">⚡</span> 视觉传达设计  |  曼联铁粉</div>
+            <h1 class="hero-title">我是邓晓军，</h1>
+            <h2 class="hero-subtitle"><span class="gradient">用像素构建有灵魂的视觉</span></h2>
+            <p class="hero-desc">
+                将红魔的美学基因融入每一个像素。专注 UI/UX 设计、品牌视觉系统、版式设计与响应式网页，致力于让好设计被更多人看见。
+            </p>
+            <div class="skill-tags">
+                <span class="skill-tag">[Figma]</span>
+                <span class="skill-tag">[PS/AI]</span>
+                <span class="skill-tag">[排版]</span>
+                <span class="skill-tag">[响应式]</span>
+            </div>
+            <div class="hero-ctas">
+                <a class="btn" onclick="switchView('projects')">查看项目实战 <span class="arrow">→</span></a>
+                <a class="btn btn-outline" onclick="switchView('contact')">下载完整简历</a>
+            </div>
+        </div>
+        <div class="hero-right">
+            <div class="halo halo-red"></div>
+            <div class="halo halo-blue"></div>
+            <div id="three-container"></div>
+        </div>
+    </div>
+</section>
+
+<!-- View: About -->
+<section class="view" id="view-about">
+    <div class="view-body">
+        <div class="about-grid">
+            <!-- Left -->
+            <div class="about-text">
+                <div class="block-label">// 关于我</div>
+                <h2>红魔精神，像素人生</h2>
+                <p>我是 <strong>邓晓军</strong>，一名视觉传达设计方向的学生，同时也是一位追随曼联多年的死忠粉。</p>
+                <p>在设计的世界里，我追求红魔般的张力与秩序——每一个像素的排布像一次精妙的传球配合，每一块色彩都是一次战术构图。</p>
+                <p>专注于 <strong>UI/UX 界面设计</strong>、<strong>品牌视觉系统</strong> 与 <strong>版式设计</strong>，热衷于让冰冷的界面变得有温度，让好设计真正被感知。</p>
+
+                <div class="about-stats">
+                    <div>
+                        <div class="stat-num">6+</div>
+                        <div class="stat-label">设计实战实践</div>
+                    </div>
+                    <div>
+                        <div class="stat-num">20+</div>
+                        <div class="stat-label">独立设计作品</div>
+                    </div>
+                    <div>
+                        <div class="stat-num">4</div>
+                        <div class="stat-label">年曼联死忠</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Timeline -->
+            <div class="about-card">
+                <h3>📋 经历时间线</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="tl-year">2027 (即将毕业)</div>
+                        <div class="tl-title">成都职业技术学院 · 视觉传达设计方向</div>
+                        <div class="tl-desc">大专学历，即将毕业。三年系统学习视觉传达、UI/UX 与品牌设计，参与校级设计实验室与多个独立作品集项目。</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="tl-year">2024</div>
+                        <div class="tl-title">入校成都职业技术学院 / Figma 官方认证设计师</div>
+                        <div class="tl-desc">正式开启设计学习之路，同年通过 Figma Certified Designer 考核，获得官方认证。</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="tl-year">2021</div>
+                        <div class="tl-title">开启曼联死忠生涯 🔴⚪</div>
+                        <div class="tl-desc">从弗格森爵士的录像入坑，从此一发不可收拾。红魔精神也成为我做设计的底色。</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</header>
+</section>
 
-<!-- Mobile Nav -->
-<div class="mobile-nav" id="mobileNav">
-    <a class="mobile-nav-link" onclick="navigate('home'); toggleMobileMenu()">首页</a>
-    <a class="mobile-nav-link" onclick="navigate('about'); toggleMobileMenu()">关于我们</a>
-    <a class="mobile-nav-link" onclick="navigate('services'); toggleMobileMenu()">服务</a>
-    <a class="mobile-nav-link" onclick="navigate('portfolio'); toggleMobileMenu()">作品集</a>
-    <a class="mobile-nav-link" onclick="navigate('contact'); toggleMobileMenu()">联系我们</a>
-</div>
+<!-- View: Skills -->
+<section class="view" id="view-skills">
+    <div class="view-body">
+        <div class="block-header">
+            <div class="block-label">// 设计能力</div>
+            <h2 class="block-title">我用什么创造好设计</h2>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-card" onmousemove="this.style.setProperty('--mx',event.offsetX+'px');this.style.setProperty('--my',event.offsetY+'px')">
+                <div class="skill-icon">�</div>
+                <h3>UI / UX 设计</h3>
+                <p>Figma / Sketch 界面设计，熟悉设计系统构建、组件库、交互原型与可用性测试。</p>
+                <div class="skill-bar"><div class="skill-bar-fill" style="--target-w:92%"></div></div>
+            </div>
+            <div class="skill-card" onmousemove="this.style.setProperty('--mx',event.offsetX+'px');this.style.setProperty('--my',event.offsetY+'px')">
+                <div class="skill-icon">🖼️</div>
+                <h3>品牌视觉</h3>
+                <p>Logo 设计、VI 系统、品牌手册、视觉识别规范，理解品牌调性与用户心智。</p>
+                <div class="skill-bar"><div class="skill-bar-fill" style="--target-w:85%"></div></div>
+            </div>
+            <div class="skill-card" onmousemove="this.style.setProperty('--mx',event.offsetX+'px');this.style.setProperty('--my',event.offsetY+'px')">
+                <div class="skill-icon">📐</div>
+                <h3>版式与排版</h3>
+                <p>Adobe InDesign / Illustrator，网格系统、字体层级、信息架构与视觉节奏掌控。</p>
+                <div class="skill-bar"><div class="skill-bar-fill" style="--target-w:80%"></div></div>
+            </div>
+            <div class="skill-card" onmousemove="this.style.setProperty('--mx',event.offsetX+'px');this.style.setProperty('--my',event.offsetY+'px')">
+                <div class="skill-icon">🎨</div>
+                <h3>视觉插画</h3>
+                <p>Photoshop / Procreate 数位绘画，扁平插画、商业插画与社媒运营视觉创作。</p>
+                <div class="skill-bar"><div class="skill-bar-fill" style="--target-w:78%"></div></div>
+            </div>
+            <div class="skill-card" onmousemove="this.style.setProperty('--mx',event.offsetX+'px');this.style.setProperty('--my',event.offsetY+'px')">
+                <div class="skill-icon">💻</div>
+                <h3>前端实现</h3>
+                <p>HTML / CSS / JavaScript / Tailwind，能独立将设计稿还原为响应式网页。</p>
+                <div class="skill-bar"><div class="skill-bar-fill" style="--target-w:88%"></div></div>
+            </div>
+            <div class="skill-card" onmousemove="this.style.setProperty('--mx',event.offsetX+'px');this.style.setProperty('--my',event.offsetY+'px')">
+                <div class="skill-icon">⚙️</div>
+                <h3>设计工具链</h3>
+                <p>Figma / PS / AI / XD / Notion / Zeplin，追求高效的设计协作与交付流程。</p>
+                <div class="skill-bar"><div class="skill-bar-fill" style="--target-w:82%"></div></div>
+            </div>
+        </div>
+    </div>
+</section>
 
-<!-- ===== Page: Home ===== -->
-<div class="page active" id="page-home">
-    <!-- Hero -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-badge">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                    </svg>
-                    专注虚拟现实与数字孪生技术
+<!-- View: Projects -->
+<section class="view" id="view-projects">
+    <div class="view-body">
+        <div class="block-header">
+            <div class="block-label">// 项目实战</div>
+            <h2 class="block-title">用像素浇筑的红魔视觉</h2>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-thumb"><span class="code">UI</span></div>
+                <div class="project-info">
+                    <div class="project-tags">
+                        <span class="project-tag">Figma</span>
+                        <span class="project-tag">UI</span>
+                        <span class="project-tag">组件库</span>
+                    </div>
+                    <h3>红魔主题作品集网站</h3>
+                    <p>以曼联红为主色调的个人作品集响应式网站，完整设计系统与组件库，可一键切换主题。</p>
+                    <div class="project-link">查看详情 →</div>
                 </div>
-                <h1>用技术构建<br><span class="highlight">沉浸式数字未来</span></h1>
-                <p>我们提供虚拟现实开发、工业数字孪生、小游戏与小程序开发等一站式技术解决方案，为广告、影视、教育、军工、金融等行业客户创造卓越的数字体验。</p>
-                <div class="hero-buttons">
-                    <button class="btn btn-primary" onclick="navigate('contact')">预约免费咨询</button>
-                    <button class="btn btn-secondary" onclick="navigate('portfolio')">查看作品案例</button>
+            </div>
+            <div class="project-card">
+                <div class="project-thumb"><span class="code">VI</span></div>
+                <div class="project-info">
+                    <div class="project-tags">
+                        <span class="project-tag">品牌</span>
+                        <span class="project-tag">VI系统</span>
+                        <span class="project-tag">Logo</span>
+                    </div>
+                    <h3>独立咖啡品牌 VI 设计</h3>
+                    <p>为初创精品咖啡品牌打造完整视觉识别系统，含 Logo、包装、门店物料与社媒视觉规范。</p>
+                    <div class="project-link">查看详情 →</div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-thumb"><span class="code">H5</span></div>
+                <div class="project-info">
+                    <div class="project-tags">
+                        <span class="project-tag">运营</span>
+                        <span class="project-tag">海报</span>
+                        <span class="project-tag">插画</span>
+                    </div>
+                    <h3>足球赛事运营视觉系列</h3>
+                    <p>为草根足球联赛设计全套赛事实物海报、社媒 Banner 与赛程长图，结合平面插画风格。</p>
+                    <div class="project-link">查看详情 →</div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-thumb"><span class="code">APP</span></div>
+                <div class="project-info">
+                    <div class="project-tags">
+                        <span class="project-tag">iOS</span>
+                        <span class="project-tag">UX</span>
+                        <span class="project-tag">原型</span>
+                    </div>
+                    <h3>二手球鞋交易 App 重设计</h3>
+                    <p>针对二手球鞋交易场景的完整 App 重设计，含用户研究、信息架构、交互原型与高保真稿。</p>
+                    <div class="project-link">查看详情 →</div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Trust Bar -->
-    <section class="trust-bar">
-        <div class="container">
-            <div class="trust-items">
-                <div class="trust-item">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                    </svg>
-                    军工级安全标准
-                </div>
-                <div class="trust-item">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                        <circle cx="9" cy="7" r="4"/>
-                        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
-                    </svg>
-                    服务200+企业客户
-                </div>
-                <div class="trust-item">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-                    </svg>
-                    50+成功项目交付
-                </div>
-                <div class="trust-item">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <path d="M12 6v6l4 2"/>
-                    </svg>
-                    7×24小时技术支持
-                </div>
-            </div>
+<!-- View: Contact -->
+<section class="view" id="view-contact">
+    <div class="view-body">
+        <div class="block-header">
+            <div class="block-label">// 联系</div>
+            <h2 class="block-title">一起创造下一个好设计</h2>
         </div>
-    </section>
-
-    <!-- Core Advantages -->
-    <section class="section">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">核心优势</span>
-                <h2 class="section-title">为什么选择我们</h2>
-                <p class="section-desc">从技术实力到行业经验，我们为每一个项目提供卓越的交付质量</p>
-            </div>
-            <div class="advantages-grid">
-                <div class="advantage-card">
-                    <div class="advantage-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
-                        </svg>
+        <div class="contact-wrap">
+            <div>
+                <a class="contact-item" href="mailto:dengxiaojun@example.com">
+                    <div class="contact-icon">✉️</div>
+                    <div>
+                        <h4>Email</h4>
+                        <p>dengxiaojun@example.com</p>
                     </div>
-                    <h3>前沿技术栈</h3>
-                    <p>深耕Unity、Unreal Engine、高斯泼溅等前沿技术，始终站在虚拟现实与数字孪生技术的最前沿。</p>
-                </div>
-                <div class="advantage-card">
-                    <div class="advantage-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                        </svg>
-                    </div>
-                    <h3>行业深度理解</h3>
-                    <p>服务军工、银行、高校等行业多年，深刻理解不同领域的合规要求与业务痛点，交付真正落地的解决方案。</p>
-                </div>
-                <div class="advantage-card">
-                    <div class="advantage-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                            <polyline points="22 4 12 14.01 9 11.01"/>
-                        </svg>
-                    </div>
-                    <h3>全流程交付</h3>
-                    <p>从需求分析、原型设计到开发部署、运维培训，提供一站式全流程服务，让项目推进更省心。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Preview -->
-    <section class="section services-preview">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">我们的服务</span>
-                <h2 class="section-title">专业技术服务矩阵</h2>
-                <p class="section-desc">覆盖虚拟现实、游戏开发、数字孪生、Web开发与技术培训</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card" onclick="navigate('services')">
-                    <img class="service-card-image" src="https://images.unsplash.com/photo-1622979135225-247b2333e522?w=600&h=400&fit=crop" alt="虚拟现实VR开发服务" loading="lazy">
-                    <div class="service-card-content">
-                        <span class="service-card-tag">虚拟现实</span>
-                        <h3>VR/AR 开发制作</h3>
-                        <p>基于Unity与Unreal Engine的沉浸式体验开发，支持Quest、Pico等主流VR设备。</p>
-                    </div>
-                </div>
-                <div class="service-card" onclick="navigate('services')">
-                    <img class="service-card-image" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop" alt="工业数字孪生系统" loading="lazy">
-                    <div class="service-card-content">
-                        <span class="service-card-tag">数字孪生</span>
-                        <h3>工业数字孪生</h3>
-                        <p>构建高精度工业仿真与可视化系统，实现物理设备与数字模型的实时映射。</p>
-                    </div>
-                </div>
-                <div class="service-card" onclick="navigate('services')">
-                    <img class="service-card-image" src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600&h=400&fit=crop" alt="小游戏与小程序开发" loading="lazy">
-                    <div class="service-card-content">
-                        <span class="service-card-tag">游戏开发</span>
-                        <h3>小游戏 / 小程序</h3>
-                        <p>微信小游戏、H5互动游戏与小程序开发，助力品牌营销与用户增长。</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="section testimonials">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label" style="background: rgba(255,255,255,0.1); color: var(--color-accent-light);">客户评价</span>
-                <h2 class="section-title">他们怎么说</h2>
-                <p class="section-desc">来自不同行业客户的真实反馈</p>
-            </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                    </div>
-                    <p class="testimonial-text">团队专业度非常高，从需求沟通到最终交付都很顺畅。为我们开发的VR培训系统大大提升了新员工的培训效率。</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">张</div>
-                        <div>
-                            <div class="testimonial-name">张经理</div>
-                            <div class="testimonial-role">某军工企业 · 培训部</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                    </div>
-                    <p class="testimonial-text">数字孪生系统上线后，我们的设备运维效率提升了40%。技术团队响应迅速，解决方案也很贴合实际业务场景。</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">李</div>
-                        <div>
-                            <div class="testimonial-name">李工</div>
-                            <div class="testimonial-role">某制造企业 · 设备部</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                    </div>
-                    <p class="testimonial-text">合作开发的营销小游戏上线一周就突破了10万访问量，远超预期。设计和技术都很在线，推荐！</p>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">王</div>
-                        <div>
-                            <div class="testimonial-name">王总监</div>
-                            <div class="testimonial-role">某广告公司 · 市场部</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Preview -->
-    <section class="section">
-        <div class="container">
-            <div class="about-preview-grid">
-                <div class="about-preview-image">
-                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop" alt="Alpha技术博客团队工作场景" loading="lazy">
-                </div>
-                <div class="about-preview-content">
-                    <span class="section-label">关于我们</span>
-                    <h2>专注技术，用心交付的技术团队</h2>
-                    <p>Alpha的技术博客是一支由资深开发者组成的技术团队，我们相信技术的价值在于解决真实问题。多年来，我们为不同行业的客户提供虚拟现实、数字孪生、游戏开发等技术解决方案。</p>
-                    <div class="about-stats">
-                        <div class="stat-item">
-                            <h4>6+</h4>
-                            <p>年行业经验</p>
-                        </div>
-                        <div class="stat-item">
-                            <h4>50+</h4>
-                            <p>成功项目</p>
-                        </div>
-                        <div class="stat-item">
-                            <h4>200+</h4>
-                            <p>培训学员</p>
-                        </div>
-                    </div>
-                    <div style="margin-top: 32px;">
-                        <button class="btn btn-outline" onclick="navigate('about')">了解更多</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Final CTA -->
-    <section class="final-cta">
-        <div class="container">
-            <h2>有项目想法？让我们一起实现</h2>
-            <p>无论是VR开发、数字孪生系统还是小游戏，我们都能为你提供专业的技术支持</p>
-            <button class="btn btn-lg" onclick="navigate('contact')">免费预约咨询</button>
-        </div>
-    </section>
-</div>
-
-<!-- ===== Page: About ===== -->
-<div class="page" id="page-about">
-    <section class="page-hero">
-        <div class="container">
-            <h1>关于我们</h1>
-            <p>一支热爱技术、专注交付的团队，用代码创造价值</p>
-        </div>
-    </section>
-
-    <!-- Brand Story -->
-    <section class="story-section">
-        <div class="container">
-            <div class="story-grid">
-                <div class="story-image">
-                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop" alt="Alpha技术博客团队照片" loading="lazy">
-                </div>
-                <div>
-                    <span class="section-label">品牌故事</span>
-                    <h2 class="section-title">从技术爱好者到专业解决方案提供商</h2>
-                    <p style="color: var(--color-text-secondary); line-height: 1.8; margin-bottom: 16px;">
-                        Alpha的技术博客诞生于2019年，最初只是一个分享Unity开发技巧的个人博客。随着社区影响力的扩大，越来越多的朋友开始咨询项目合作，我们逐渐从个人技术分享走向团队化的技术服务。
-                    </p>
-                    <p style="color: var(--color-text-secondary); line-height: 1.8; margin-bottom: 16px;">
-                        如今，我们已经成长为一支拥有多名资深开发者的技术团队，服务客户覆盖军工、金融、教育、广告、影视等多个行业。我们始终相信：技术的价值不在于多么前沿，而在于能否真正解决客户的问题。
-                    </p>
-                    <p style="color: var(--color-text-secondary); line-height: 1.8;">
-                        从一个人的博客，到一支值得信赖的技术团队——我们的故事，才刚刚开始。
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Mission -->
-    <section class="mission-section">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">使命与愿景</span>
-                <h2 class="section-title">我们为什么存在</h2>
-            </div>
-            <div class="mission-grid">
-                <div class="mission-card">
-                    <h3>我们的使命</h3>
-                    <p>让前沿技术触手可及。我们致力于将虚拟现实、数字孪生等先进技术转化为各行各业都能负担、能落地的实际解决方案，帮助更多企业完成数字化升级。</p>
-                </div>
-                <div class="mission-card">
-                    <h3>我们的愿景</h3>
-                    <p>成为中国最值得信赖的沉浸式技术服务团队。在虚拟现实与数字孪生领域，成为客户遇到相关需求时第一个想到的名字。</p>
-                </div>
-                <div class="mission-card">
-                    <h3>我们的价值观</h3>
-                    <p>技术为本、客户至上、诚信交付。每一行代码都要对客户负责，每一个项目都要经得起时间检验。不夸大、不承诺做不到的事情。</p>
-                </div>
-                <div class="mission-card">
-                    <h3>我们的承诺</h3>
-                    <p>透明沟通、按时交付、持续支持。项目过程中保持信息透明，遇到问题及时沟通，交付后提供长期技术支持与维护服务。</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Differentiators -->
-    <section class="differentiators">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">差异化优势</span>
-                <h2 class="section-title">我们与众不同的地方</h2>
-            </div>
-            <div class="diff-list">
-                <div class="diff-item">
-                    <div class="diff-number">01</div>
-                    <div class="diff-content">
-                        <h3>技术深度与广度兼具</h3>
-                        <p>团队成员既有深耕Unity/Unreal引擎多年的资深开发者，也有熟悉Web前端、后端、嵌入式全栈的工程师。一个项目团队就能覆盖全部技术栈，不需要客户对接多家供应商。</p>
-                    </div>
-                </div>
-                <div class="diff-item">
-                    <div class="diff-number">02</div>
-                    <div class="diff-content">
-                        <h3>军工级品质意识</h3>
-                        <p>服务军工行业的经历让我们养成了极高的品质标准。代码规范、文档完整、数据安全、交付严谨——这些不是我们的加分项，而是我们的基础要求。</p>
-                    </div>
-                </div>
-                <div class="diff-item">
-                    <div class="diff-number">03</div>
-                    <div class="diff-content">
-                        <h3>从需求到落地的全流程能力</h3>
-                        <p>很多技术团队只会写代码，但我们能从业务视角出发，帮客户梳理需求、设计方案、搭建原型、开发交付、培训运维。我们卖的不是代码，是解决问题的能力。</p>
-                    </div>
-                </div>
-                <div class="diff-item">
-                    <div class="diff-number">04</div>
-                    <div class="diff-content">
-                        <h3>技术培训与知识传递</h3>
-                        <p>我们不仅交付项目，更注重知识传递。每个项目结束后，我们会为客户团队提供技术培训，帮助客户建立自己的技术能力，而不是永远依赖外包。</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="final-cta">
-        <div class="container">
-            <h2>想进一步了解我们？</h2>
-            <p>欢迎与我们交流，无论是否有项目，都欢迎聊聊你的想法</p>
-            <button class="btn btn-lg" onclick="navigate('contact')">联系我们</button>
-        </div>
-    </section>
-</div>
-
-<!-- ===== Page: Services ===== -->
-<div class="page" id="page-services">
-    <section class="page-hero">
-        <div class="container">
-            <h1>我们的服务</h1>
-            <p>从虚拟现实到数字孪生，从游戏开发到技术培训——专业技术，一站式交付</p>
-        </div>
-    </section>
-
-    <!-- Services Grid -->
-    <section class="section">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">服务矩阵</span>
-                <h2 class="section-title">我们能为你做什么</h2>
-            </div>
-            <div class="services-page-grid">
-                <div class="service-detail-card">
-                    <div class="service-detail-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                        </svg>
-                    </div>
-                    <h3>VR/AR 虚拟现实开发</h3>
-                    <p>基于Unity与Unreal Engine，为各行业提供沉浸式VR/AR应用开发服务，支持主流VR设备。</p>
-                    <div class="service-features">
-                        <div class="service-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            VR培训系统开发
-                        </div>
-                        <div class="service-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            AR增强现实应用
-                        </div>
-                        <div class="service-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            高斯泼溅场景重建
-                        </div>
-                        <div class="service-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            数字展厅/展馆
-                        </div>
-                    </div>
-                </div>
-
-                <div class="service-detail-card">
-                    <div class="service-detail-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-                            <line x1="8" y1="21" x2="16" y2="21"/>
-                            <line x1="12" y1="17" x2="12" y2="21"/>
-                        </svg>
-                    </div>
-                    <h3>工业数字孪生</h3>
-                    <p>构建高精度工业数字孪生系统，实现物理设备与虚拟模型的实时映射与智能分析。</p>
-                    <div class="service-features">
-                        <div class="service-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            工厂/产线数字孪生
-                        </div>
-                        <div class="service-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            设备仿真与监控
-                        </div>
-                        <div class="service-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            智慧城市可视化
-                        </div>
-                        <div class="service-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            数据大屏开发
-                        </div>
-                    </div>
-                </div>
-
-                <div class="service-detail-card">
-                    <div class="service-detail-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="6 3 20 12 6 21 6 3"/>
-                        </svg>
-                    </div>
-                    <h3>小游戏 / H5互动开发</h3>
-                    <p>为品牌营销、活动推广打造有趣的互动小游戏与H5应用，助力用户增长与品牌传播。</p>
-                    <div class="service-features">
-                        <div class="service-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            微信小游戏开发
-                        </div>
-                        <div class="service-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            H5营销互动
-                        </div>
-                        <div class="service-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            品牌联名游戏
-                        </div>
-                        <div class="service-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            小游戏代运营
-                        </div>
-                    </div>
-                </div>
-
-                <div class="service-detail-card">
-                    <div class="service-detail-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
-                            <line x1="12" y1="18" x2="12.01" y2="18"/>
-                        </svg>
-                    </div>
-                    <h3>小程序 / 网站开发</h3>
-                    <p>微信小程序、企业官网、Web应用开发，提供从设计到部署的全流程服务。</p>
-                    <div class="service-features">
-                        <div class="service-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            微信/支付宝小程序
-                        </div>
-                        <div class="service-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            企业官网/品牌站
-                        </div>
-                        <div class="service-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            Web管理系统
-                        </div>
-                        <div class="service-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            WebGL 3D网页
-                        </div>
-                    </div>
-                </div>
-
-                <div class="service-detail-card">
-                    <div class="service-detail-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-                            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
-                        </svg>
-                    </div>
-                    <h3>技术培训</h3>
-                    <p>面向企业与个人的Unity开发、数字孪生、VR开发技术培训，实战导向，学以致用。</p>
-                    <div class="service-features">
-                        <div class="service-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            Unity开发实战培训
-                        </div>
-                        <div class="service-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            数字孪生技术入门
-                        </div>
-                        <div class="service-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            VR开发企业内训
-                        </div>
-                        <div class="service-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            高校实训课程合作
-                        </div>
-                    </div>
-                </div>
-
-                <div class="service-detail-card">
-                    <div class="service-detail-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="3"/>
-                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-                        </svg>
-                    </div>
-                    <h3>技术咨询与架构</h3>
-                    <p>为企业提供技术选型、架构设计、性能优化等专业咨询服务，助力技术决策。</p>
-                    <div class="service-features">
-                        <div class="service-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            技术方案咨询
-                        </div>
-                        <div class="service-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            系统架构设计
-                        </div>
-                        <div class="service-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            性能优化诊断
-                        </div>
-                        <div class="service-feature">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                            技术团队顾问
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Process Steps -->
-    <section class="process-section">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">合作流程</span>
-                <h2 class="section-title">四步开启合作</h2>
-                <p class="section-desc">清晰透明的流程，让项目推进更可控</p>
-            </div>
-            <div class="process-steps">
-                <div class="process-step">
-                    <div class="step-number">01</div>
-                    <h3>需求沟通</h3>
-                    <p>深入了解你的业务场景与目标，明确项目需求与预期效果</p>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">02</div>
-                    <h3>方案报价</h3>
-                    <p>提供详细的技术方案、时间规划与报价，确认后启动项目</p>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">03</div>
-                    <h3>开发交付</h3>
-                    <p>敏捷开发，定期汇报进度，分阶段交付可验证的成果</p>
-                </div>
-                <div class="process-step">
-                    <div class="step-number">04</div>
-                    <h3>运维支持</h3>
-                    <p>交付后提供培训与技术支持，确保系统稳定运行</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="faq-section">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">常见问题</span>
-                <h2 class="section-title">你可能想知道的</h2>
-            </div>
-            <div class="faq-list">
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        一个VR项目大概需要多长时间？
-                        <svg class="faq-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="12" y1="5" x2="12" y2="19"/>
-                            <line x1="5" y1="12" x2="19" y2="12"/>
-                        </svg>
-                    </div>
-                    <div class="faq-answer">
-                        <p>项目周期取决于复杂度。简单的VR体验项目通常需要4-8周，中等规模的培训系统需要2-3个月，大型数字孪生项目可能需要半年以上。我们会在需求沟通后给出详细的时间规划。</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        项目费用是怎么计算的？
-                        <svg class="faq-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="12" y1="5" x2="12" y2="19"/>
-                            <line x1="5" y1="12" x2="19" y2="12"/>
-                        </svg>
-                    </div>
-                    <div class="faq-answer">
-                        <p>我们按项目规模和复杂度报价，而不是按人天计费。需求明确后，我们会提供固定总价，中途不会随意加价。付款通常按阶段支付：启动付30%，中期付40%，验收付30%。</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        我们没有技术背景，能合作吗？
-                        <svg class="faq-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="12" y1="5" x2="12" y2="19"/>
-                            <line x1="5" y1="12" x2="19" y2="12"/>
-                        </svg>
-                    </div>
-                    <div class="faq-answer">
-                        <p>当然可以。我们服务过很多非技术背景的客户，会用通俗易懂的语言沟通，帮你把想法转化为技术方案。你只需要告诉我们你想解决什么问题，剩下的交给我们。</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        项目交付后有售后维护吗？
-                        <svg class="faq-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="12" y1="5" x2="12" y2="19"/>
-                            <line x1="5" y1="12" x2="19" y2="12"/>
-                        </svg>
-                    </div>
-                    <div class="faq-answer">
-                        <p>所有项目都包含3个月免费质保期，期间发现bug免费修复。质保期后可以选择签订年度维护协议，提供持续的技术支持与系统更新服务。</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        可以只做部分开发吗？比如我们自己有团队
-                        <svg class="faq-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <line x1="12" y1="5" x2="12" y2="19"/>
-                            <line x1="5" y1="12" x2="19" y2="12"/>
-                        </svg>
-                    </div>
-                    <div class="faq-answer">
-                        <p>可以的。我们接受模块化合作，比如只做3D建模、只做前端开发、只做某个功能模块。也可以作为技术顾问加入你的团队，提供技术指导和代码评审服务。</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="final-cta">
-        <div class="container">
-            <h2>有具体需求？聊聊看</h2>
-            <p>告诉我们你的想法，我们会在24小时内回复</p>
-            <button class="btn btn-lg" onclick="navigate('contact')">获取方案报价</button>
-        </div>
-    </section>
-</div>
-
-<!-- ===== Page: Portfolio ===== -->
-<div class="page" id="page-portfolio">
-    <section class="page-hero">
-        <div class="container">
-            <h1>作品集</h1>
-            <p>精选项目案例，见证技术如何创造价值</p>
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="container">
-            <!-- Filter Bar -->
-            <div class="portfolio-filter">
-                <button class="filter-btn active" data-filter="all" onclick="filterPortfolio('all')">全部</button>
-                <button class="filter-btn" data-filter="vr" onclick="filterPortfolio('vr')">VR/AR</button>
-                <button class="filter-btn" data-filter="digital-twin" onclick="filterPortfolio('digital-twin')">数字孪生</button>
-                <button class="filter-btn" data-filter="game" onclick="filterPortfolio('game')">小游戏</button>
-                <button class="filter-btn" data-filter="web" onclick="filterPortfolio('web')">网站/小程序</button>
-            </div>
-
-            <!-- Portfolio Grid -->
-            <div class="portfolio-grid">
-                <div class="portfolio-card" data-category="vr">
-                    <img class="portfolio-card-image" src="https://images.unsplash.com/photo-1622979135225-247b2333e522?w=600&h=400&fit=crop" alt="VR军事训练系统项目" loading="lazy">
-                    <div class="portfolio-card-content">
-                        <span class="portfolio-category">VR/AR</span>
-                        <h3>VR军事模拟训练系统</h3>
-                        <p>为某军工单位开发的沉浸式VR训练系统，支持多人协同训练场景。</p>
-                    </div>
-                </div>
-
-                <div class="portfolio-card" data-category="digital-twin">
-                    <img class="portfolio-card-image" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop" alt="工厂数字孪生系统" loading="lazy">
-                    <div class="portfolio-card-content">
-                        <span class="portfolio-category">数字孪生</span>
-                        <h3>智能工厂数字孪生平台</h3>
-                        <p>为制造企业打造的产线数字孪生系统，实现设备实时监控与预测性维护。</p>
-                    </div>
-                </div>
-
-                <div class="portfolio-card" data-category="game">
-                    <img class="portfolio-card-image" src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600&h=400&fit=crop" alt="营销小游戏项目" loading="lazy">
-                    <div class="portfolio-card-content">
-                        <span class="portfolio-category">小游戏</span>
-                        <h3>品牌联名营销小游戏</h3>
-                        <p>为知名快消品牌开发的微信小游戏，上线7天突破10万访问量。</p>
-                    </div>
-                </div>
-
-                <div class="portfolio-card" data-category="web">
-                    <img class="portfolio-card-image" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop" alt="企业官网开发项目" loading="lazy">
-                    <div class="portfolio-card-content">
-                        <span class="portfolio-category">网站开发</span>
-                        <h3>科技企业品牌官网</h3>
-                        <p>为某上市科技公司设计开发的品牌官网，含WebGL 3D交互展示。</p>
-                    </div>
-                </div>
-
-                <div class="portfolio-card" data-category="vr">
-                    <img class="portfolio-card-image" src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=600&h=400&fit=crop" alt="VR数字展厅项目" loading="lazy">
-                    <div class="portfolio-card-content">
-                        <span class="portfolio-category">VR/AR</span>
-                        <h3>VR数字展厅体验馆</h3>
-                        <p>为某大学打造的VR校园展厅，沉浸式展示学校历史与科研成果。</p>
-                    </div>
-                </div>
-
-                <div class="portfolio-card" data-category="digital-twin">
-                    <img class="portfolio-card-image" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=400&fit=crop" alt="智慧城市可视化项目" loading="lazy">
-                    <div class="portfolio-card-content">
-                        <span class="portfolio-category">数字孪生</span>
-                        <h3>智慧城市数据可视化</h3>
-                        <p>为某地级市开发的城市运营指挥中心可视化大屏系统。</p>
-                    </div>
-                </div>
-
-                <div class="portfolio-card" data-category="game">
-                    <img class="portfolio-card-image" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&h=400&fit=crop" alt="H5互动小游戏" loading="lazy">
-                    <div class="portfolio-card-content">
-                        <span class="portfolio-category">小游戏</span>
-                        <h3>节日营销H5互动</h3>
-                        <p>为银行客户开发的春节营销H5互动游戏，用户参与率超过30%。</p>
-                    </div>
-                </div>
-
-                <div class="portfolio-card" data-category="web">
-                    <img class="portfolio-card-image" src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&h=400&fit=crop" alt="小程序开发项目" loading="lazy">
-                    <div class="portfolio-card-content">
-                        <span class="portfolio-category">小程序</span>
-                        <h3>智慧园区管理小程序</h3>
-                        <p>为产业园区开发的微信小程序，集成门禁、停车、报修等功能。</p>
-                    </div>
-                </div>
-
-                <div class="portfolio-card" data-category="vr">
-                    <img class="portfolio-card-image" src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?w=600&h=400&fit=crop" alt="高斯泼溅扫描项目" loading="lazy">
-                    <div class="portfolio-card-content">
-                        <span class="portfolio-category">VR/AR</span>
-                        <h3>高斯泼溅场景重建</h3>
-                        <p>使用3D高斯泼溅技术，为影视行业拍摄制作高精度数字化场景资产。</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="final-cta">
-        <div class="container">
-            <h2>想做类似的项目？</h2>
-            <p>告诉我们你的需求，让我们一起打造下一个成功案例</p>
-            <button class="btn btn-lg" onclick="navigate('contact')">开始项目咨询</button>
-        </div>
-    </section>
-</div>
-
-<!-- ===== Page: Contact ===== -->
-<div class="page" id="page-contact">
-    <section class="page-hero">
-        <div class="container">
-            <h1>联系我们</h1>
-            <p>有项目想法或技术问题？欢迎随时与我们交流</p>
-        </div>
-    </section>
-
-    <section class="contact-section">
-        <div class="container">
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <h3>让我们开始对话</h3>
-                    <p>填写右侧表单或通过以下方式直接联系我们，我们会在24小时内回复。</p>
-                    
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                                    <polyline points="22,6 12,13 2,6"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4>邮箱</h4>
-                                <p>contact@alpha-tech.dev</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4>电话</h4>
-                                <p>400-888-0000</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                                    <circle cx="12" cy="10" r="3"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4>地址</h4>
-                                <p>四川省成都市高新区</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"/>
-                                    <polyline points="12 6 12 12 16 14"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4>工作时间</h4>
-                                <p>周一至周五 9:00 - 18:00</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="social-links" style="margin-top: 32px;">
-                        <a href="#" onclick="showToast('微信公众号'); return false;" aria-label="微信">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348z"/></svg>
-                        </a>
-                        <a href="#" onclick="showToast('GitHub'); return false;" aria-label="GitHub">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                        </a>
-                        <a href="#" onclick="showToast('B站'); return false;" aria-label="B站">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56-1.004-1.004-1.524-2.262-1.56-3.773v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.658.373-.907l.027-.027c.249-.249.55-.373.906-.373.356 0 .658.124.907.373L8.96 4.653h6.027L15.96 2.667c.249-.249.55-.373.907-.373.356 0 .657.124.906.373.267.249.396.55.396.907 0 .355-.129.657-.396.906l-1.16 1.173z"/></svg>
-                        </a>
-                    </div>
-                </div>
-
-                <div>
-                    <form class="contact-form" onsubmit="handleContactForm(event)">
-                        <h3 style="margin-bottom: 24px; color: var(--color-primary);">发送消息</h3>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="form-label" for="name">姓名 *</label>
-                                <input type="text" id="name" class="form-input" placeholder="请输入您的姓名" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" for="phone">电话</label>
-                                <input type="tel" id="phone" class="form-input" placeholder="请输入您的电话">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="email">邮箱 *</label>
-                            <input type="email" id="email" class="form-input" placeholder="请输入您的邮箱" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="message">留言内容 *</label>
-                            <textarea id="message" class="form-textarea" placeholder="请描述您的项目需求或问题..." required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">提交咨询</button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Map Placeholder -->
-            <div class="map-placeholder">
-                地图位置：四川省成都市高新区
-            </div>
-        </div>
-    </section>
-</div>
-
-<!-- ===== Footer ===== -->
-<footer class="footer">
-    <div class="container">
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <a class="logo" style="color: white;" onclick="navigate('home')">
-                    <div class="logo-icon">A</div>
-                    <span>Alpha的技术博客</span>
                 </a>
-                <p>专注虚拟现实开发、工业数字孪生、小游戏与小程序开发，为各行业客户提供专业技术解决方案。</p>
-            </div>
-            <div class="footer-col">
-                <h4>快速链接</h4>
-                <ul>
-                    <li><a onclick="navigate('home')">首页</a></li>
-                    <li><a onclick="navigate('about')">关于我们</a></li>
-                    <li><a onclick="navigate('services')">服务</a></li>
-                    <li><a onclick="navigate('portfolio')">作品集</a></li>
-                    <li><a onclick="navigate('contact')">联系我们</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>服务项目</h4>
-                <ul>
-                    <li><a onclick="navigate('services')">VR/AR开发</a></li>
-                    <li><a onclick="navigate('services')">数字孪生</a></li>
-                    <li><a onclick="navigate('services')">小游戏开发</a></li>
-                    <li><a onclick="navigate('services')">小程序开发</a></li>
-                    <li><a onclick="navigate('services')">技术培训</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>联系方式</h4>
-                <ul>
-                    <li>邮箱：contact@alpha-tech.dev</li>
-                    <li>电话：400-888-0000</li>
-                    <li>地址：四川省成都市</li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Alpha的技术博客. All rights reserved.</p>
-            <div class="social-links">
-                <a href="#" onclick="showToast('微信公众号'); return false;" aria-label="微信">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.406-.032zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg>
+                <a class="contact-item" href="#">
+                    <div class="contact-icon">🐙</div>
+                    <div>
+                        <h4>GitHub</h4>
+                        <p>github.com/dengxrj</p>
+                    </div>
                 </a>
-                <a href="#" onclick="showToast('GitHub'); return false;" aria-label="GitHub">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                <a class="contact-item" href="#">
+                    <div class="contact-icon">💼</div>
+                    <div>
+                        <h4>LinkedIn</h4>
+                        <p>linkedin.com/in/dengxrj</p>
+                    </div>
                 </a>
-                <a href="#" onclick="showToast('B站'); return false;" aria-label="B站">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56-1.004-1.004-1.524-2.262-1.56-3.773v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.658.373-.907l.027-.027c.249-.249.55-.373.906-.373.356 0 .658.124.907.373L8.96 4.653h6.027L15.96 2.667c.249-.249.55-.373.907-.373.356 0 .657.124.906.373.267.249.396.55.396.907 0 .355-.129.657-.396.906l-1.16 1.173zM5.333 7.24c-.746.018-1.373.278-1.88.78-.502.503-.767 1.134-.793 1.894v7.52c.026.76.291 1.391.793 1.894.507.502 1.134.762 1.88.78h13.334c.746-.018 1.373-.278 1.88-.78.502-.503.767-1.134.793-1.894v-7.52c-.026-.76-.291-1.391-.793-1.894-.507-.502-1.134-.762-1.88-.78H5.333zm2.0 3.027h1.067c.311 0 .573.107.787.32.213.213.32.475.32.786v1.84c0 .311-.107.573-.32.787a1.075 1.075 0 0 1-.787.32H7.333a1.075 1.075 0 0 1-.786-.32 1.075 1.075 0 0 1-.32-.787v-1.84c0-.311.107-.573.32-.786.213-.213.475-.32.786-.32zm7.334 0h1.066c.311 0 .573.107.787.32.213.213.32.475.32.786v1.84c0 .311-.107.573-.32.787a1.075 1.075 0 0 1-.787.32h-1.066a1.075 1.075 0 0 1-.787-.32 1.075 1.075 0 0 1-.32-.787v-1.84c0-.311.107-.573.32-.786.214-.213.476-.32.787-.32z"/></svg>
+                <a class="contact-item" href="#">
+                    <div class="contact-icon">💬</div>
+                    <div>
+                        <h4>微信</h4>
+                        <p>dengxrj_design</p>
+                    </div>
                 </a>
             </div>
+            <div class="contact-side">
+                <h3>🔴 下一个设计，红魔出征</h3>
+                <p>如果你有 UI/UX、品牌视觉、版式设计相关的项目想法，或者只是想聊聊设计与红魔往事，随时联系我。</p>
+                <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:12px;">
+                    <a class="btn" href="mailto:dengxiaojun@example.com">发邮件 <span class="arrow">→</span></a>
+                    <a class="btn btn-outline" onclick="switchView('projects')">看我项目</a>
+                </div>
+            </div>
         </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-left">
+        © 2025 邓晓军 · Made with <span class="heart">♥</span> and lots of Figma
+    </div>
+    <div class="footer-links">
+        <a onclick="switchView('home')">首页</a>
+        <a onclick="switchView('about')">关于</a>
+        <a onclick="switchView('skills')">技能</a>
+        <a onclick="switchView('projects')">项目</a>
+        <a onclick="switchView('contact')">联系</a>
     </div>
 </footer>
 
-<!-- Toast -->
-<div class="toast" id="toast"></div>
+<!-- Three.js CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 <script>
-    // ===== Navigation =====
-    function navigate(page) {
-        // Hide all pages
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        // Show target page
-        document.getElementById('page-' + page).classList.add('active');
-        // Update nav active state
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.classList.toggle('active', link.dataset.page === page);
-        });
-        // Scroll to top
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        // Close mobile menu
-        document.getElementById('mobileNav').classList.remove('open');
+/* ===== SPA State ===== */
+let currentView = 'home';
+
+function switchView(name) {
+    if (name === currentView) return;
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    const next = document.getElementById('view-' + name);
+    if (next) next.classList.add('active');
+    document.querySelectorAll('.nav-links a').forEach(a => {
+        a.classList.toggle('active', a.dataset.view === name);
+    });
+    // scroll to top on view change
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    // close mobile menu
+    document.getElementById('navLinks').classList.remove('open');
+    currentView = name;
+}
+
+// init: activate default view + nav highlight
+document.querySelectorAll('.nav-links a').forEach(a => {
+    if (a.dataset.view === currentView) a.classList.add('active');
+});
+
+/* ===== Cursor Glow ===== */
+const glow = document.getElementById('cursorGlow');
+document.addEventListener('mousemove', e => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+});
+
+/* ===== Background Particles ===== */
+(function() {
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let w, h, particles = [];
+    const isMobile = window.innerWidth < 768;
+    const PARTICLE_COUNT = isMobile ? 30 : 70;
+
+    function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const CHARS = '{ } [ ] ( ) ; < > / \\ | + = * # include using namespace return class void int float true false';
+    const chars = CHARS.split(' ');
+
+    class Particle {
+        constructor() { this.reset(); }
+        reset() {
+            this.x = Math.random() * w;
+            this.y = Math.random() * h;
+            this.size = Math.random() * 12 + 10;
+            this.speedY = (Math.random() * 0.4 + 0.15) * (Math.random() < 0.5 ? -1 : 1);
+            this.char = chars[Math.floor(Math.random() * chars.length)];
+            this.opacity = Math.random() * 0.35 + 0.08;
+        }
+        update() {
+            this.y += this.speedY;
+            if (this.y < -20 || this.y > h + 20) this.reset();
+        }
+        draw() {
+            ctx.font = `${this.size}px "JetBrains Mono", monospace`;
+            ctx.fillStyle = `rgba(218, 2, 14, ${this.opacity})`;
+            ctx.fillText(this.char, this.x, this.y);
+        }
     }
 
-    // ===== Mobile Menu =====
-    function toggleMobileMenu() {
-        document.getElementById('mobileNav').classList.toggle('open');
+    for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
+
+    function animate() {
+        ctx.clearRect(0, 0, w, h);
+        particles.forEach(p => { p.update(); p.draw(); });
+        requestAnimationFrame(animate);
+    }
+    animate();
+})();
+
+/* ===== Three.js Manchester United Crest ===== */
+(function() {
+    const container = document.getElementById('three-container');
+    if (!container) return;
+
+    /* ---- 1. Draw crest on a 2D canvas ---- */
+    function buildCrestTexture() {
+        const c = document.createElement('canvas');
+        c.width = 1024; c.height = 1024;
+        const ctx = c.getContext('2d');
+        const W = c.width, H = c.height;
+
+        ctx.clearRect(0, 0, W, H);
+
+        const CX = W / 2;
+        const RED = '#DA020E';
+        const GOLD = '#FBE122';
+        const WHITE = '#FFFFFF';
+        const DARK_RED = '#A8000A';
+
+        /* ========== 1. Main red crest shape ========== */
+        // Curved top, straight middle sides, pointed bottom
+        ctx.beginPath();
+        // Top-left start
+        ctx.moveTo(W * 0.12, H * 0.06);
+        // Top edge curves up slightly
+        ctx.bezierCurveTo(W * 0.15, H * 0.02, W * 0.85, H * 0.02, W * 0.88, H * 0.06);
+        // Right side down
+        ctx.lineTo(W * 0.88, H * 0.62);
+        // Right curve to point
+        ctx.bezierCurveTo(W * 0.88, H * 0.78, W * 0.68, H * 0.93, W * 0.50, H * 0.97);
+        // Left curve from point
+        ctx.bezierCurveTo(W * 0.32, H * 0.93, W * 0.12, H * 0.78, W * 0.12, H * 0.62);
+        ctx.closePath();
+        ctx.fillStyle = RED;
+        ctx.fill();
+
+        // Thin gold inner border for the crest
+        ctx.save();
+        ctx.clip();
+        ctx.beginPath();
+        const pad = 10;
+        ctx.moveTo(W * 0.12 + pad, H * 0.06 + pad);
+        ctx.bezierCurveTo(W * 0.15 + pad, H * 0.02 + pad, W * 0.85 - pad, H * 0.02 + pad, W * 0.88 - pad, H * 0.06 + pad);
+        ctx.lineTo(W * 0.88 - pad, H * 0.62 - pad);
+        ctx.bezierCurveTo(W * 0.88 - pad, H * 0.78 - pad, W * 0.68 - pad, H * 0.93 - pad, W * 0.50, H * 0.97 - pad);
+        ctx.bezierCurveTo(W * 0.32 + pad, H * 0.93 - pad, W * 0.12 + pad, H * 0.78 - pad, W * 0.12 + pad, H * 0.62 - pad);
+        ctx.closePath();
+        ctx.strokeStyle = GOLD;
+        ctx.lineWidth = 3;
+        ctx.stroke();
+        ctx.restore();
+
+        /* ========== 2. Top curved banner with "MANCHESTER" ========== */
+        // Draw curved top banner background (slightly darker red strip inside top)
+        ctx.save();
+        ctx.clip(); // clip to main crest
+        // Banner - a curved band at top
+        ctx.fillStyle = DARK_RED;
+        ctx.beginPath();
+        ctx.moveTo(W * 0.12, H * 0.18);
+        ctx.bezierCurveTo(W * 0.18, H * 0.10, W * 0.82, H * 0.10, W * 0.88, H * 0.18);
+        ctx.lineTo(W * 0.88, H * 0.32);
+        ctx.bezierCurveTo(W * 0.82, H * 0.26, W * 0.18, H * 0.26, W * 0.12, H * 0.32);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+
+        // "MANCHESTER" curved text along top banner arc
+        ctx.save();
+        ctx.font = 'bold 62px "Arial Black", "Impact", sans-serif';
+        ctx.fillStyle = WHITE;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        const topText = 'MANCHESTER';
+        const topR = W * 0.38;
+        const topStart = Math.PI - 0.78;
+        const topEnd = 0.78;
+        const topSteps = topText.length;
+        const topArcCX = CX;
+        const topArcCY = H * 0.28; // arc center is BELOW the text (concave upward)
+        for (let i = 0; i < topSteps; i++) {
+            const t = i / (topSteps - 1);
+            const angle = topStart + (topEnd - topStart) * t;
+            const x = topArcCX + Math.cos(angle) * topR;
+            const y = topArcCY + Math.sin(angle) * topR;
+            ctx.save();
+            ctx.translate(x, y);
+            // rotate letter tangent to arc (letters stand upright on top arc)
+            ctx.rotate(angle + Math.PI / 2);
+            ctx.fillText(topText[i], 0, 0);
+            ctx.restore();
+        }
+        ctx.restore();
+
+        /* ========== 3. Center gold shield ========== */
+        const shieldCX = CX;
+        const shieldCY = H * 0.54;
+        const shieldW = W * 0.22;
+        const shieldH = H * 0.30;
+
+        ctx.save();
+        // Shield path
+        ctx.beginPath();
+        ctx.moveTo(shieldCX - shieldW / 2, shieldCY - shieldH / 2);
+        ctx.lineTo(shieldCX + shieldW / 2, shieldCY - shieldH / 2);
+        ctx.lineTo(shieldCX + shieldW / 2, shieldCY);
+        ctx.bezierCurveTo(shieldCX + shieldW / 2, shieldCY + shieldH * 0.30, shieldCX + shieldW / 4, shieldCY + shieldH * 0.48, shieldCX, shieldCY + shieldH / 2);
+        ctx.bezierCurveTo(shieldCX - shieldW / 4, shieldCY + shieldH * 0.48, shieldCX - shieldW / 2, shieldCY + shieldH * 0.30, shieldCX - shieldW / 2, shieldCY);
+        ctx.closePath();
+        ctx.fillStyle = GOLD;
+        ctx.fill();
+        // Shield outline
+        ctx.strokeStyle = RED;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.restore();
+
+        /* ========== 4. Heraldic Lion (Red Devil) inside gold shield ========== */
+        drawHeraldicLion(ctx, shieldCX, shieldCY + 4, shieldW * 0.72, shieldH * 0.72);
+
+        /* ========== 5. Small ship above lion head ========== */
+        drawTinyShip(ctx, shieldCX, shieldCY - shieldH * 0.38, 28);
+
+        /* ========== 6. Two footballs (left + right) ========== */
+        drawFootball(ctx, CX - W * 0.24, shieldCY - shieldH * 0.05, 44);
+        drawFootball(ctx, CX + W * 0.24, shieldCY - shieldH * 0.05, 44);
+
+        /* ========== 7. Bottom curved banner with "UNITED" ========== */
+        ctx.save();
+        ctx.clip();
+        ctx.fillStyle = DARK_RED;
+        const botY = H * 0.78;
+        ctx.beginPath();
+        ctx.moveTo(W * 0.20, botY);
+        ctx.bezierCurveTo(W * 0.15, botY + 20, W * 0.85, botY + 20, W * 0.80, botY);
+        ctx.lineTo(W * 0.82, H * 0.92);
+        ctx.bezierCurveTo(W * 0.75, H * 0.88, W * 0.25, H * 0.88, W * 0.18, H * 0.92);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+
+        // "UNITED" curved on bottom banner (concave downward)
+        ctx.save();
+        ctx.font = 'bold 56px "Arial Black", "Impact", sans-serif';
+        ctx.fillStyle = WHITE;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        const botText = 'UNITED';
+        const botR = W * 0.30;
+        const botArcCX = CX;
+        const botArcCY = H * 0.92; // arc center is BELOW the text
+        const botStart = Math.PI + 0.35;
+        const botEnd = Math.PI * 2 - 0.35;
+        const botSteps = botText.length;
+        for (let i = 0; i < botSteps; i++) {
+            const t = i / (botSteps - 1);
+            const angle = botStart + (botEnd - botStart) * t;
+            const x = botArcCX + Math.cos(angle) * botR;
+            const y = botArcCY + Math.sin(angle) * botR;
+            ctx.save();
+            ctx.translate(x, y);
+            // Letters on bottom curved banner flip upside-down naturally since arc center below
+            ctx.rotate(angle - Math.PI / 2);
+            ctx.fillText(botText[i], 0, 0);
+            ctx.restore();
+        }
+        ctx.restore();
+
+        /* ========== 8. Subtle highlight sweep ========== */
+        const grd = ctx.createLinearGradient(0, 0, W, H);
+        grd.addColorStop(0, 'rgba(255,255,255,0.04)');
+        grd.addColorStop(0.5, 'rgba(255,255,255,0.10)');
+        grd.addColorStop(1, 'rgba(255,255,255,0.04)');
+        ctx.save();
+        ctx.beginPath();
+        // re-clip to crest shape
+        ctx.moveTo(W * 0.12, H * 0.06);
+        ctx.bezierCurveTo(W * 0.15, H * 0.02, W * 0.85, H * 0.02, W * 0.88, H * 0.06);
+        ctx.lineTo(W * 0.88, H * 0.62);
+        ctx.bezierCurveTo(W * 0.88, H * 0.78, W * 0.68, H * 0.93, W * 0.50, H * 0.97);
+        ctx.bezierCurveTo(W * 0.32, H * 0.93, W * 0.12, H * 0.78, W * 0.12, H * 0.62);
+        ctx.closePath();
+        ctx.clip();
+        ctx.fillStyle = grd;
+        ctx.fillRect(0, 0, W, H);
+        ctx.restore();
+
+        return new THREE.CanvasTexture(c);
     }
 
-    // ===== Toast =====
-    function showToast(message) {
-        const toast = document.getElementById('toast');
-        toast.textContent = message;
-        toast.classList.add('show');
-        setTimeout(() => {
-            toast.classList.remove('show');
-        }, 2000);
+    /* ---- Helper: Heraldic Red Devil Lion (standing, holding trident) ---- */
+    function drawHeraldicLion(ctx, cx, cy, w, h) {
+        // Gold lion silhouette, heraldic style
+        // Bounding box roughly cx-w/2 .. cx+w/2, cy-h/2 .. cy+h/2
+        const GOLD = '#FBE122';
+        const DARK = '#8B6914'; // dark gold for outlines
+
+        ctx.save();
+
+        // Scale everything to fit
+        const s = w / 140;
+        ctx.translate(cx, cy);
+        ctx.scale(s, s);
+
+        // Body color
+        ctx.fillStyle = GOLD;
+        ctx.strokeStyle = DARK;
+        ctx.lineWidth = 1.5;
+
+        // ===== HIND LEGS =====
+        // Left hind leg (back)
+        ctx.beginPath();
+        ctx.moveTo(-55, 30);
+        ctx.lineTo(-62, 70);
+        ctx.lineTo(-48, 70);
+        ctx.lineTo(-45, 35);
+        ctx.closePath(); ctx.fill(); ctx.stroke();
+        // Right hind leg (back)
+        ctx.beginPath();
+        ctx.moveTo(-35, 30);
+        ctx.lineTo(-42, 70);
+        ctx.lineTo(-28, 70);
+        ctx.lineTo(-25, 35);
+        ctx.closePath(); ctx.fill(); ctx.stroke();
+
+        // ===== TAIL =====
+        ctx.beginPath();
+        ctx.moveTo(-55, 25);
+        ctx.bezierCurveTo(-95, 15, -105, -25, -70, -35);
+        ctx.bezierCurveTo(-110, -50, -120, -10, -85, 10);
+        ctx.bezierCurveTo(-100, 0, -85, -20, -60, -20);
+        ctx.bezierCurveTo(-40, -18, -40, 10, -55, 25);
+        ctx.closePath(); ctx.fill(); ctx.stroke();
+
+        // ===== MAIN BODY =====
+        ctx.beginPath();
+        ctx.moveTo(-60, -30);
+        ctx.bezierCurveTo(-70, 0, -65, 35, -45, 40);
+        ctx.lineTo(45, 40);
+        ctx.bezierCurveTo(65, 35, 65, 0, 55, -30);
+        ctx.bezierCurveTo(40, -50, -40, -50, -60, -30);
+        ctx.closePath(); ctx.fill(); ctx.stroke();
+
+        // ===== NECK =====
+        ctx.beginPath();
+        ctx.moveTo(25, -35);
+        ctx.bezierCurveTo(40, -70, 55, -75, 50, -95);
+        ctx.bezierCurveTo(40, -80, 25, -50, 15, -35);
+        ctx.closePath(); ctx.fill(); ctx.stroke();
+
+        // ===== HEAD (with horns/mane) =====
+        // Mane - zigzag around head
+        ctx.beginPath();
+        const hx = 55, hy = -95;
+        // Mane points around circular head
+        const maneR = 26;
+        const spikes = 14;
+        for (let i = 0; i < spikes; i++) {
+            const a = (i / spikes) * Math.PI * 2;
+            const r1 = maneR;
+            const r2 = maneR + 8;
+            const x1 = hx + Math.cos(a) * r1;
+            const y1 = hy + Math.sin(a) * r1;
+            const a2 = a + Math.PI / spikes;
+            const x2 = hx + Math.cos(a2) * r2;
+            const y2 = hy + Math.sin(a2) * r2;
+            if (i === 0) ctx.moveTo(x1, y1);
+            else ctx.lineTo(x1, y1);
+            ctx.lineTo(x2, y2);
+        }
+        ctx.closePath(); ctx.fill(); ctx.stroke();
+
+        // Head proper
+        ctx.beginPath();
+        ctx.arc(hx, hy, maneR - 4, 0, Math.PI * 2);
+        ctx.fill(); ctx.stroke();
+
+        // Horns (since it's a Red Devil)
+        ctx.beginPath();
+        ctx.moveTo(hx - 12, hy - maneR + 2);
+        ctx.lineTo(hx - 22, hy - maneR - 22);
+        ctx.lineTo(hx - 6, hy - maneR + 4);
+        ctx.closePath(); ctx.fill(); ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(hx + 12, hy - maneR + 2);
+        ctx.lineTo(hx + 22, hy - maneR - 22);
+        ctx.lineTo(hx + 6, hy - maneR + 4);
+        ctx.closePath(); ctx.fill(); ctx.stroke();
+
+        // Eyes (red)
+        ctx.fillStyle = '#DA020E';
+        ctx.beginPath(); ctx.ellipse(hx - 6, hy - 4, 4, 3, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.ellipse(hx + 6, hy - 4, 4, 3, 0, 0, Math.PI * 2); ctx.fill();
+
+        // Mouth/snout
+        ctx.fillStyle = GOLD;
+        ctx.strokeStyle = DARK;
+        ctx.beginPath();
+        ctx.moveTo(hx - 10, hy + 6);
+        ctx.lineTo(hx + 10, hy + 6);
+        ctx.lineTo(hx + 4, hy + 14);
+        ctx.lineTo(hx - 4, hy + 14);
+        ctx.closePath(); ctx.fill(); ctx.stroke();
+        // Teeth
+        ctx.fillStyle = WHITE;
+        ctx.fillRect(hx - 6, hy + 6, 3, 5);
+        ctx.fillRect(hx + 3, hy + 6, 3, 5);
+
+        // ===== FRONT LEGS (raised, holding trident) =====
+        // Right front leg (raised up)
+        ctx.fillStyle = GOLD;
+        ctx.strokeStyle = DARK;
+        ctx.beginPath();
+        ctx.moveTo(30, -20);
+        ctx.bezierCurveTo(55, -40, 80, -55, 75, -85);
+        ctx.lineTo(85, -95);
+        ctx.lineTo(70, -75);
+        ctx.bezierCurveTo(60, -55, 45, -35, 35, -20);
+        ctx.closePath(); ctx.fill(); ctx.stroke();
+
+        // ===== TRIDENT in raised paw =====
+        ctx.strokeStyle = DARK;
+        ctx.fillStyle = GOLD;
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.moveTo(82, -90);
+        ctx.lineTo(82, -50);
+        ctx.stroke();
+        // Trident head (3 prongs)
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(70, -92); ctx.lineTo(82, -105); ctx.lineTo(94, -92);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(82, -105); ctx.lineTo(82, -115);
+        ctx.stroke();
+        // Cross bar
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(68, -92); ctx.lineTo(96, -92);
+        ctx.stroke();
+
+        ctx.restore();
     }
 
-    // ===== FAQ Toggle =====
-    function toggleFaq(element) {
-        const faqItem = element.closest('.faq-item');
-        faqItem.classList.toggle('open');
+    /* ---- Helper: Tiny sailing ship ---- */
+    function drawTinyShip(ctx, cx, cy, size) {
+        const W = size * 2.0, H = size * 1.6;
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.fillStyle = '#FBE122';
+        ctx.strokeStyle = '#8B6914';
+        ctx.lineWidth = 1.5;
+
+        // Hull
+        ctx.beginPath();
+        ctx.moveTo(-W / 2, 0);
+        ctx.lineTo(W / 2, 0);
+        ctx.lineTo(W / 2 * 0.7, H * 0.35);
+        ctx.lineTo(-W / 2 * 0.7, H * 0.35);
+        ctx.closePath(); ctx.fill(); ctx.stroke();
+
+        // Mast
+        ctx.fillRect(-1.5, -H * 0.9, 3, H * 0.9);
+
+        // Sail (right)
+        ctx.beginPath();
+        ctx.moveTo(2, -H * 0.9);
+        ctx.quadraticCurveTo(W * 0.5, -H * 0.45, 2, -H * 0.05);
+        ctx.closePath(); ctx.fill(); ctx.stroke();
+
+        // Sail (left, smaller)
+        ctx.beginPath();
+        ctx.moveTo(-2, -H * 0.85);
+        ctx.quadraticCurveTo(-W * 0.35, -H * 0.45, -2, -H * 0.1);
+        ctx.closePath(); ctx.fill(); ctx.stroke();
+
+        ctx.restore();
     }
 
-    // ===== Portfolio Filter =====
-    function filterPortfolio(category) {
-        // Update active button
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.filter === category);
-        });
-        // Filter cards
-        document.querySelectorAll('.portfolio-card').forEach(card => {
-            if (category === 'all' || card.dataset.category === category) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
+    /* ---- Helper: Football (soccer ball) ---- */
+    function drawFootball(ctx, cx, cy, r) {
+        ctx.save();
+
+        // White circle
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fill();
+        ctx.strokeStyle = '#1a1a1a';
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        // Pentagon pattern inside (classic soccer ball)
+        ctx.fillStyle = '#1a1a1a';
+        ctx.strokeStyle = '#1a1a1a';
+        ctx.lineWidth = 0.8;
+
+        const innerR = r * 0.32;
+
+        // Center pentagon
+        drawPolygon(ctx, cx, cy, innerR, 5, -Math.PI / 2, true);
+
+        // 5 surrounding pentagons (simplified as pentagon outlines connected by panels)
+        // Each outer pentagon connected to center by a line
+        for (let i = 0; i < 5; i++) {
+            const a = -Math.PI / 2 + (i / 5) * Math.PI * 2;
+            const ox = cx + Math.cos(a) * innerR * 1.6;
+            const oy = cy + Math.sin(a) * innerR * 1.6;
+            drawPolygon(ctx, ox, oy, innerR * 0.55, 5, a, true);
+        }
+
+        // Line segments between panels
+        ctx.strokeStyle = '#333';
+        ctx.lineWidth = 0.6;
+        for (let i = 0; i < 5; i++) {
+            const a = -Math.PI / 2 + (i / 5) * Math.PI * 2;
+            const ox = cx + Math.cos(a) * innerR * 1.6;
+            const oy = cy + Math.sin(a) * innerR * 1.6;
+            ctx.beginPath();
+            ctx.moveTo(cx + Math.cos(a) * innerR * 0.6, cy + Math.sin(a) * innerR * 0.6);
+            ctx.lineTo(ox + Math.cos(a) * innerR * 0.3, oy + Math.sin(a) * innerR * 0.3);
+            ctx.stroke();
+        }
+
+        ctx.restore();
     }
 
-    // ===== Contact Form =====
-    function handleContactForm(e) {
-        e.preventDefault();
-        showToast('提交成功！我们会尽快联系您');
-        e.target.reset();
+    function drawPolygon(ctx, cx, cy, r, sides, rotation, fill) {
+        ctx.beginPath();
+        for (let i = 0; i < sides; i++) {
+            const a = rotation + (i / sides) * Math.PI * 2;
+            const x = cx + Math.cos(a) * r;
+            const y = cy + Math.sin(a) * r;
+            if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.closePath();
+        if (fill) { ctx.fillStyle = '#1a1a1a'; ctx.fill(); }
     }
+
+    /* ---- 2. Scene setup ---- */
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 1000);
+    camera.position.set(0, 0, 6.5);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
+
+    function resize() {
+        const rect = container.getBoundingClientRect();
+        camera.aspect = rect.width / rect.height;
+        camera.updateProjectionMatrix();
+        renderer.setSize(rect.width, rect.height);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    /* ---- 3. Build crest group ---- */
+    const crest = new THREE.Group();
+
+    // Main crest plane with canvas texture
+    const crestTex = buildCrestTexture();
+    crestTex.anisotropy = 8;
+
+    const crestGeo = new THREE.PlaneGeometry(2.6, 3.0);
+    const crestMat = new THREE.MeshStandardMaterial({
+        map: crestTex,
+        transparent: true,
+        side: THREE.DoubleSide,
+        emissive: 0x2a0002,
+        emissiveIntensity: 0.35,
+        metalness: 0.25,
+        roughness: 0.55
+    });
+    const crestMesh = new THREE.Mesh(crestGeo, crestMat);
+    crest.add(crestMesh);
+
+    // Thin back plate (3D depth)
+    const backGeo = new THREE.PlaneGeometry(2.65, 3.05);
+    const backMat = new THREE.MeshBasicMaterial({
+        color: 0x0a0205, transparent: true, opacity: 0.6
+    });
+    const backPlate = new THREE.Mesh(backGeo, backMat);
+    backPlate.position.z = -0.06;
+    crest.add(backPlate);
+
+    // Glowing wireframe rings (orbiting effect)
+    const ringGroup = new THREE.Group();
+    crest.add(ringGroup);
+
+    const ringMat1 = new THREE.MeshBasicMaterial({
+        color: 0xDA020E, wireframe: true, transparent: true, opacity: 0.55
+    });
+    const ringMat2 = new THREE.MeshBasicMaterial({
+        color: 0x00F0FF, wireframe: true, transparent: true, opacity: 0.35
+    });
+
+    const ring1 = new THREE.Mesh(new THREE.TorusGeometry(2.0, 0.015, 8, 80), ringMat1);
+    ring1.rotation.x = Math.PI / 2;
+    ringGroup.add(ring1);
+
+    const ring2 = new THREE.Mesh(new THREE.TorusGeometry(2.3, 0.012, 8, 80), ringMat2);
+    ring2.rotation.x = Math.PI / 3;
+    ring2.rotation.y = Math.PI / 6;
+    ringGroup.add(ring2);
+
+    const ring3 = new THREE.Mesh(new THREE.TorusGeometry(2.55, 0.010, 6, 80), ringMat1.clone());
+    ring3.material.opacity = 0.25;
+    ring3.rotation.x = Math.PI / 5;
+    ring3.rotation.z = Math.PI / 4;
+    ringGroup.add(ring3);
+
+    // Orbiting particles (red sparks)
+    const particleCount = 40;
+    const particleGeo = new THREE.BufferGeometry();
+    const particlePos = new Float32Array(particleCount * 3);
+    const particleCol = new Float32Array(particleCount * 3);
+    const particleAngles = new Float32Array(particleCount);
+
+    for (let i = 0; i < particleCount; i++) {
+        const r = 2.6 + Math.random() * 0.8;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(2 * Math.random() - 1);
+        particlePos[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+        particlePos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta) * 0.7;
+        particlePos[i * 3 + 2] = r * Math.cos(phi) * 0.5;
+
+        const isRed = Math.random() < 0.7;
+        if (isRed) {
+            particleCol[i * 3] = 0.85; particleCol[i * 3 + 1] = 0.01; particleCol[i * 3 + 2] = 0.05;
+        } else {
+            particleCol[i * 3] = 0.0; particleCol[i * 3 + 1] = 0.94; particleCol[i * 3 + 2] = 1.0;
+        }
+        particleAngles[i] = Math.random() * Math.PI * 2;
+    }
+    particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePos, 3));
+    particleGeo.setAttribute('color', new THREE.BufferAttribute(particleCol, 3));
+
+    const particleMat = new THREE.PointsMaterial({
+        size: 0.08, vertexColors: true, transparent: true, opacity: 0.85,
+        blending: THREE.AdditiveBlending, depthWrite: false
+    });
+    const particles = new THREE.Points(particleGeo, particleMat);
+    crest.add(particles);
+
+    // Inner floating "MU" text sprite (canvas)
+    const makeTextSprite = (text, color, font) => {
+        const tc = document.createElement('canvas');
+        tc.width = 256; tc.height = 128;
+        const tctx = tc.getContext('2d');
+        tctx.clearRect(0, 0, tc.width, tc.height);
+        tctx.font = font;
+        tctx.fillStyle = color;
+        tctx.textAlign = 'center';
+        tctx.textBaseline = 'middle';
+        tctx.shadowColor = color;
+        tctx.shadowBlur = 20;
+        tctx.fillText(text, tc.width / 2, tc.height / 2);
+        const tex = new THREE.CanvasTexture(tc);
+        const mat = new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false });
+        const sp = new THREE.Sprite(mat);
+        return sp;
+    };
+
+    const muSprite = makeTextSprite('UNITED', '#FBE122', 'bold 72px "Arial Black", sans-serif');
+    muSprite.scale.set(2.0, 1.0, 1);
+    muSprite.position.set(0, -2.4, 0);
+    crest.add(muSprite);
+
+    scene.add(crest);
+
+    /* ---- 4. Lighting ---- */
+    scene.add(new THREE.AmbientLight(0x3a2228, 0.8));
+    const redKey = new THREE.DirectionalLight(0xDA020E, 1.2);
+    redKey.position.set(3, 4, 5); scene.add(redKey);
+    const blueRim = new THREE.DirectionalLight(0x00F0FF, 0.6);
+    blueRim.position.set(-4, -2, 3); scene.add(blueRim);
+    const fillLight = new THREE.PointLight(0xffffff, 0.35, 20);
+    fillLight.position.set(0, 0, 5); scene.add(fillLight);
+
+    /* ---- 5. Mouse tracking ---- */
+    let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
+    let idlePhase = 0;
+
+    const onMouseMove = e => {
+        // Use container rect for accurate tracking within the 3D view
+        const rect = renderer.domElement.getBoundingClientRect();
+        mouseX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+        mouseY = ((e.clientY - rect.top) / rect.height) * 2 - 1;
+    };
+    renderer.domElement.addEventListener('mousemove', onMouseMove);
+    // Also track on window so mouse leaving still works smoothly
+    document.addEventListener('mousemove', e => {
+        // Fallback when outside container
+        if (!e.target || !renderer.domElement.contains(e.target)) {
+            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            mouseY = (e.clientY / window.innerHeight) * 2 - 1;
+        }
+    });
+
+    renderer.domElement.addEventListener('touchmove', e => {
+        if (e.touches.length === 0) return;
+        const t = e.touches[0];
+        const rect = renderer.domElement.getBoundingClientRect();
+        mouseX = ((t.clientX - rect.left) / rect.width) * 2 - 1;
+        mouseY = ((t.clientY - rect.top) / rect.height) * 2 - 1;
+    }, { passive: true });
+
+    /* ---- 6. Animate ---- */
+    const clock = new THREE.Clock();
+    function animate() {
+        const t = clock.getElapsedTime();
+
+        // Smooth mouse follow
+        targetX += (mouseX - targetX) * 0.06;
+        targetY += (mouseY - targetY) * 0.06;
+
+        // Idle auto-wobble when mouse is roughly centered
+        idlePhase += 0.008;
+        const idleX = Math.sin(idlePhase) * 0.15;
+        const idleY = Math.cos(idlePhase * 0.8) * 0.1;
+
+        // Main crest rotation (mouse follow + idle bob)
+        crest.rotation.y = targetX * 0.8 + idleX;
+        crest.rotation.x = -targetY * 0.55 + idleY;
+        crest.position.y = Math.sin(t * 1.2) * 0.08;
+
+        // Rings spin at different rates
+        ring1.rotation.z = t * 0.35;
+        ring2.rotation.y = -t * 0.25;
+        ring3.rotation.z = t * 0.15;
+        ring3.rotation.x = t * 0.1;
+
+        // Particles gentle swirl
+        particles.rotation.y = t * 0.18;
+        particles.rotation.x = Math.sin(t * 0.2) * 0.1;
+
+        // Glow intensity pulse
+        crestMat.emissiveIntensity = 0.3 + Math.sin(t * 2.5) * 0.1;
+
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+    }
+    animate();
+})();
 </script>
 
 </body>
