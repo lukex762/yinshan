@@ -1,0 +1,2398 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpha的技术博客 | 虚拟现实开发 · 数字孪生 · 小游戏开发</title>
+    <meta name="description" content="Alpha的技术博客 - 专业的虚拟现实开发、工业数字孪生、小游戏开发、小程序开发与技术培训服务。服务广告、影视、大学、企业、军工、银行等行业客户。">
+    <meta name="keywords" content="小游戏,虚拟现实,培训,高斯泼溅,数字孪生,VR开发,小程序开发">
+    <meta name="author" content="Alpha的技术博客">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>A</text></svg>">
+    
+    <!-- 字体 -->
+    <link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+    
+    <style>
+        /* ===== CSS Variables ===== */
+        :root {
+            --color-primary: #0F172A;
+            --color-primary-light: #1E293B;
+            --color-accent: #06B6D4;
+            --color-accent-dark: #0891B2;
+            --color-accent-light: #67E8F9;
+            --color-bg: #F8FAFC;
+            --color-white: #FFFFFF;
+            --color-text: #1E293B;
+            --color-text-secondary: #64748B;
+            --color-border: #E2E8F0;
+            --color-success: #10B981;
+            --gradient-accent: linear-gradient(135deg, #06B6D4 0%, #3B82F6 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --container-max: 1200px;
+        }
+
+        /* ===== Reset & Base ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--color-text);
+            background-color: var(--color-bg);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== Buttons ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 28px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(6, 182, 212, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-white);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--color-white);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--color-accent);
+            border: 2px solid var(--color-accent);
+        }
+
+        .btn-outline:hover {
+            background: var(--color-accent);
+            color: white;
+        }
+
+        /* ===== Header ===== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--gradient-accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--color-accent-light);
+        }
+
+        .header-cta {
+            padding: 10px 20px;
+            font-size: 14px;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .menu-toggle span {
+            width: 24px;
+            height: 2px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        /* Mobile Nav */
+        .mobile-nav {
+            position: fixed;
+            top: 72px;
+            left: 0;
+            right: 0;
+            background: var(--color-primary);
+            padding: 24px;
+            transform: translateY(-100%);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .mobile-nav.open {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mobile-nav-link {
+            display: block;
+            color: rgba(255, 255, 255, 0.9);
+            padding: 16px 0;
+            font-size: 18px;
+            font-weight: 500;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+
+        .mobile-nav-link:last-child {
+            border-bottom: none;
+        }
+
+        /* ===== Page Views ===== */
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding-top: 72px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* ===== Hero Section ===== */
+        .hero {
+            background: var(--color-primary);
+            color: white;
+            padding: 120px 0 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            border-radius: 100px;
+            font-size: 14px;
+            color: var(--color-accent-light);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 .highlight {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 40px;
+            max-width: 600px;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* Trust Bar */
+        .trust-bar {
+            background: var(--color-primary-light);
+            padding: 32px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .trust-items {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+
+        .trust-item svg {
+            width: 20px;
+            height: 20px;
+            color: var(--color-accent);
+        }
+
+        /* ===== Section Common ===== */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 64px;
+        }
+
+        .section-label {
+            display: inline-block;
+            padding: 6px 14px;
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--color-accent-dark);
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 800;
+            color: var(--color-primary);
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+        }
+
+        /* ===== Core Advantages ===== */
+        .advantages-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .advantage-card {
+            padding: 40px 32px;
+            background: white;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+            transition: all 0.3s ease;
+        }
+
+        .advantage-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--color-accent);
+        }
+
+        .advantage-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-accent);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .advantage-icon svg {
+            width: 28px;
+            height: 28px;
+            color: white;
+        }
+
+        .advantage-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 12px;
+        }
+
+        .advantage-card p {
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ===== Services Preview ===== */
+        .services-preview {
+            background: white;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .service-card {
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: var(--color-bg);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .service-card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .service-card-content {
+            padding: 24px;
+        }
+
+        .service-card-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--color-accent-dark);
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .service-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+
+        .service-card p {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ===== Testimonials ===== */
+        .testimonials {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        .testimonials .section-title {
+            color: white;
+        }
+
+        .testimonials .section-desc {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .testimonial-card {
+            padding: 32px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-md);
+        }
+
+        .testimonial-stars {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-stars svg {
+            width: 16px;
+            height: 16px;
+            color: #FBBF24;
+            fill: #FBBF24;
+        }
+
+        .testimonial-text {
+            font-size: 15px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 24px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--gradient-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .testimonial-name {
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .testimonial-role {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* ===== About Preview ===== */
+        .about-preview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .about-preview-image {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .about-preview-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .about-preview-content h2 {
+            font-size: clamp(28px, 3vw, 36px);
+            font-weight: 800;
+            color: var(--color-primary);
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .about-preview-content p {
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .stat-item h4 {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--color-accent-dark);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .stat-item p {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            margin: 0;
+        }
+
+        /* ===== Final CTA ===== */
+        .final-cta {
+            background: var(--gradient-accent);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-size: clamp(28px, 4vw, 40px);
+            font-weight: 800;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        .final-cta p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 32px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .final-cta .btn {
+            background: white;
+            color: var(--color-accent-dark);
+        }
+
+        .final-cta .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            background: var(--color-primary);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 64px 0 24px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand p {
+            margin-top: 16px;
+            font-size: 14px;
+            line-height: 1.7;
+            max-width: 300px;
+        }
+
+        .footer-col h4 {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col ul li a {
+            font-size: 14px;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--color-accent-light);
+        }
+
+        .footer-bottom {
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 14px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-links a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--color-accent);
+        }
+
+        .social-links svg {
+            width: 18px;
+            height: 18px;
+            color: white;
+        }
+
+        /* ===== About Page ===== */
+        .page-hero {
+            background: var(--color-primary);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .page-hero h1 {
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .page-hero p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .story-section {
+            padding: 100px 0;
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .story-image {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+
+        .story-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        .mission-section {
+            background: white;
+            padding: 100px 0;
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        .mission-card {
+            padding: 32px;
+            border-radius: var(--radius-md);
+            background: var(--color-bg);
+            border-left: 4px solid var(--color-accent);
+        }
+
+        .mission-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 12px;
+        }
+
+        .mission-card p {
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+        }
+
+        .differentiators {
+            padding: 100px 0;
+        }
+
+        .diff-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .diff-item {
+            display: flex;
+            gap: 24px;
+            padding: 32px 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .diff-item:last-child {
+            border-bottom: none;
+        }
+
+        .diff-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--color-accent);
+            min-width: 48px;
+        }
+
+        .diff-content h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+
+        .diff-content p {
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ===== Services Page ===== */
+        .services-page-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .service-detail-card {
+            padding: 40px 32px;
+            background: white;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+            transition: all 0.3s ease;
+        }
+
+        .service-detail-card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: var(--color-accent);
+        }
+
+        .service-detail-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--gradient-accent);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .service-detail-icon svg {
+            width: 32px;
+            height: 32px;
+            color: white;
+        }
+
+        .service-detail-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 12px;
+        }
+
+        .service-detail-card p {
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .service-features {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .service-feature {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--color-text);
+        }
+
+        .service-feature svg {
+            width: 16px;
+            height: 16px;
+            color: var(--color-success);
+            flex-shrink: 0;
+        }
+
+        /* Process Steps */
+        .process-section {
+            background: white;
+            padding: 100px 0;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            position: relative;
+        }
+
+        .process-step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 64px;
+            height: 64px;
+            background: var(--gradient-accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 auto 20px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .process-step h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+
+        .process-step p {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+
+        /* FAQ */
+        .faq-section {
+            padding: 100px 0;
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            margin-bottom: 16px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .faq-question {
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+
+        .faq-question:hover {
+            background: var(--color-bg);
+        }
+
+        .faq-toggle {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.open .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 300px;
+        }
+
+        .faq-answer p {
+            padding: 0 24px 20px;
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ===== Portfolio Page ===== */
+        .portfolio-filter {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 1px solid var(--color-border);
+            background: white;
+            border-radius: 100px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .portfolio-card {
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            background: white;
+            border: 1px solid var(--color-border);
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .portfolio-card-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .portfolio-card-content {
+            padding: 24px;
+        }
+
+        .portfolio-category {
+            display: inline-block;
+            padding: 4px 10px;
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--color-accent-dark);
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .portfolio-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+
+        .portfolio-card p {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+
+        /* ===== Contact Page ===== */
+        .contact-section {
+            padding: 100px 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 64px;
+        }
+
+        .contact-info h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 16px;
+        }
+
+        .contact-info > p {
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .contact-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .contact-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(6, 182, 212, 0.1);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-icon svg {
+            width: 24px;
+            height: 24px;
+            color: var(--color-accent-dark);
+        }
+
+        .contact-item h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 4px;
+        }
+
+        .contact-item p {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+        }
+
+        .contact-form {
+            background: white;
+            padding: 40px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: 8px;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            font-size: 16px;
+            font-family: inherit;
+            color: var(--color-text);
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .map-placeholder {
+            margin-top: 64px;
+            height: 300px;
+            background: linear-gradient(135deg, #E2E8F0 0%, #CBD5E1 100%);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-text-secondary);
+            font-size: 16px;
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 1024px) {
+            .advantages-grid,
+            .services-grid,
+            .testimonials-grid,
+            .services-page-grid,
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .process-steps {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 48px;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+            }
+
+            .header-cta {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero {
+                padding: 80px 0 60px;
+            }
+
+            .advantages-grid,
+            .services-grid,
+            .testimonials-grid,
+            .services-page-grid,
+            .portfolio-grid,
+            .about-preview-grid,
+            .story-grid,
+            .mission-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form {
+                padding: 24px;
+            }
+
+            .trust-items {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .hero-buttons .btn {
+                width: 100%;
+            }
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            padding: 16px 24px;
+            background: var(--color-primary);
+            color: white;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-xl);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 2000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== Header ===== -->
+<header class="header">
+    <div class="container">
+        <div class="header-inner">
+            <a class="logo" onclick="navigate('home')">
+                <div class="logo-icon">A</div>
+                <span>Alpha的技术博客</span>
+            </a>
+            <nav class="nav">
+                <a class="nav-link active" data-page="home" onclick="navigate('home')">首页</a>
+                <a class="nav-link" data-page="about" onclick="navigate('about')">关于我们</a>
+                <a class="nav-link" data-page="services" onclick="navigate('services')">服务</a>
+                <a class="nav-link" data-page="portfolio" onclick="navigate('portfolio')">作品集</a>
+                <a class="nav-link" data-page="contact" onclick="navigate('contact')">联系我们</a>
+            </nav>
+            <button class="btn btn-primary header-cta" onclick="navigate('contact')">免费咨询</button>
+            <div class="menu-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobileNav">
+    <a class="mobile-nav-link" onclick="navigate('home'); toggleMobileMenu()">首页</a>
+    <a class="mobile-nav-link" onclick="navigate('about'); toggleMobileMenu()">关于我们</a>
+    <a class="mobile-nav-link" onclick="navigate('services'); toggleMobileMenu()">服务</a>
+    <a class="mobile-nav-link" onclick="navigate('portfolio'); toggleMobileMenu()">作品集</a>
+    <a class="mobile-nav-link" onclick="navigate('contact'); toggleMobileMenu()">联系我们</a>
+</div>
+
+<!-- ===== Page: Home ===== -->
+<div class="page active" id="page-home">
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                    专注虚拟现实与数字孪生技术
+                </div>
+                <h1>用技术构建<br><span class="highlight">沉浸式数字未来</span></h1>
+                <p>我们提供虚拟现实开发、工业数字孪生、小游戏与小程序开发等一站式技术解决方案，为广告、影视、教育、军工、金融等行业客户创造卓越的数字体验。</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="navigate('contact')">预约免费咨询</button>
+                    <button class="btn btn-secondary" onclick="navigate('portfolio')">查看作品案例</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Bar -->
+    <section class="trust-bar">
+        <div class="container">
+            <div class="trust-items">
+                <div class="trust-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    军工级安全标准
+                </div>
+                <div class="trust-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                    服务200+企业客户
+                </div>
+                <div class="trust-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    </svg>
+                    50+成功项目交付
+                </div>
+                <div class="trust-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                    7×24小时技术支持
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Advantages -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">核心优势</span>
+                <h2 class="section-title">为什么选择我们</h2>
+                <p class="section-desc">从技术实力到行业经验，我们为每一个项目提供卓越的交付质量</p>
+            </div>
+            <div class="advantages-grid">
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </div>
+                    <h3>前沿技术栈</h3>
+                    <p>深耕Unity、Unreal Engine、高斯泼溅等前沿技术，始终站在虚拟现实与数字孪生技术的最前沿。</p>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <h3>行业深度理解</h3>
+                    <p>服务军工、银行、高校等行业多年，深刻理解不同领域的合规要求与业务痛点，交付真正落地的解决方案。</p>
+                </div>
+                <div class="advantage-card">
+                    <div class="advantage-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                    </div>
+                    <h3>全流程交付</h3>
+                    <p>从需求分析、原型设计到开发部署、运维培训，提供一站式全流程服务，让项目推进更省心。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Preview -->
+    <section class="section services-preview">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">我们的服务</span>
+                <h2 class="section-title">专业技术服务矩阵</h2>
+                <p class="section-desc">覆盖虚拟现实、游戏开发、数字孪生、Web开发与技术培训</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card" onclick="navigate('services')">
+                    <img class="service-card-image" src="https://images.unsplash.com/photo-1622979135225-247b2333e522?w=600&h=400&fit=crop" alt="虚拟现实VR开发服务" loading="lazy">
+                    <div class="service-card-content">
+                        <span class="service-card-tag">虚拟现实</span>
+                        <h3>VR/AR 开发制作</h3>
+                        <p>基于Unity与Unreal Engine的沉浸式体验开发，支持Quest、Pico等主流VR设备。</p>
+                    </div>
+                </div>
+                <div class="service-card" onclick="navigate('services')">
+                    <img class="service-card-image" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop" alt="工业数字孪生系统" loading="lazy">
+                    <div class="service-card-content">
+                        <span class="service-card-tag">数字孪生</span>
+                        <h3>工业数字孪生</h3>
+                        <p>构建高精度工业仿真与可视化系统，实现物理设备与数字模型的实时映射。</p>
+                    </div>
+                </div>
+                <div class="service-card" onclick="navigate('services')">
+                    <img class="service-card-image" src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600&h=400&fit=crop" alt="小游戏与小程序开发" loading="lazy">
+                    <div class="service-card-content">
+                        <span class="service-card-tag">游戏开发</span>
+                        <h3>小游戏 / 小程序</h3>
+                        <p>微信小游戏、H5互动游戏与小程序开发，助力品牌营销与用户增长。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section testimonials">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label" style="background: rgba(255,255,255,0.1); color: var(--color-accent-light);">客户评价</span>
+                <h2 class="section-title">他们怎么说</h2>
+                <p class="section-desc">来自不同行业客户的真实反馈</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p class="testimonial-text">团队专业度非常高，从需求沟通到最终交付都很顺畅。为我们开发的VR培训系统大大提升了新员工的培训效率。</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">张</div>
+                        <div>
+                            <div class="testimonial-name">张经理</div>
+                            <div class="testimonial-role">某军工企业 · 培训部</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p class="testimonial-text">数字孪生系统上线后，我们的设备运维效率提升了40%。技术团队响应迅速，解决方案也很贴合实际业务场景。</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">李</div>
+                        <div>
+                            <div class="testimonial-name">李工</div>
+                            <div class="testimonial-role">某制造企业 · 设备部</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p class="testimonial-text">合作开发的营销小游戏上线一周就突破了10万访问量，远超预期。设计和技术都很在线，推荐！</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">王</div>
+                        <div>
+                            <div class="testimonial-name">王总监</div>
+                            <div class="testimonial-role">某广告公司 · 市场部</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Preview -->
+    <section class="section">
+        <div class="container">
+            <div class="about-preview-grid">
+                <div class="about-preview-image">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop" alt="Alpha技术博客团队工作场景" loading="lazy">
+                </div>
+                <div class="about-preview-content">
+                    <span class="section-label">关于我们</span>
+                    <h2>专注技术，用心交付的技术团队</h2>
+                    <p>Alpha的技术博客是一支由资深开发者组成的技术团队，我们相信技术的价值在于解决真实问题。多年来，我们为不同行业的客户提供虚拟现实、数字孪生、游戏开发等技术解决方案。</p>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <h4>6+</h4>
+                            <p>年行业经验</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4>50+</h4>
+                            <p>成功项目</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4>200+</h4>
+                            <p>培训学员</p>
+                        </div>
+                    </div>
+                    <div style="margin-top: 32px;">
+                        <button class="btn btn-outline" onclick="navigate('about')">了解更多</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>有项目想法？让我们一起实现</h2>
+            <p>无论是VR开发、数字孪生系统还是小游戏，我们都能为你提供专业的技术支持</p>
+            <button class="btn btn-lg" onclick="navigate('contact')">免费预约咨询</button>
+        </div>
+    </section>
+</div>
+
+<!-- ===== Page: About ===== -->
+<div class="page" id="page-about">
+    <section class="page-hero">
+        <div class="container">
+            <h1>关于我们</h1>
+            <p>一支热爱技术、专注交付的团队，用代码创造价值</p>
+        </div>
+    </section>
+
+    <!-- Brand Story -->
+    <section class="story-section">
+        <div class="container">
+            <div class="story-grid">
+                <div class="story-image">
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop" alt="Alpha技术博客团队照片" loading="lazy">
+                </div>
+                <div>
+                    <span class="section-label">品牌故事</span>
+                    <h2 class="section-title">从技术爱好者到专业解决方案提供商</h2>
+                    <p style="color: var(--color-text-secondary); line-height: 1.8; margin-bottom: 16px;">
+                        Alpha的技术博客诞生于2019年，最初只是一个分享Unity开发技巧的个人博客。随着社区影响力的扩大，越来越多的朋友开始咨询项目合作，我们逐渐从个人技术分享走向团队化的技术服务。
+                    </p>
+                    <p style="color: var(--color-text-secondary); line-height: 1.8; margin-bottom: 16px;">
+                        如今，我们已经成长为一支拥有多名资深开发者的技术团队，服务客户覆盖军工、金融、教育、广告、影视等多个行业。我们始终相信：技术的价值不在于多么前沿，而在于能否真正解决客户的问题。
+                    </p>
+                    <p style="color: var(--color-text-secondary); line-height: 1.8;">
+                        从一个人的博客，到一支值得信赖的技术团队——我们的故事，才刚刚开始。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission -->
+    <section class="mission-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">使命与愿景</span>
+                <h2 class="section-title">我们为什么存在</h2>
+            </div>
+            <div class="mission-grid">
+                <div class="mission-card">
+                    <h3>我们的使命</h3>
+                    <p>让前沿技术触手可及。我们致力于将虚拟现实、数字孪生等先进技术转化为各行各业都能负担、能落地的实际解决方案，帮助更多企业完成数字化升级。</p>
+                </div>
+                <div class="mission-card">
+                    <h3>我们的愿景</h3>
+                    <p>成为中国最值得信赖的沉浸式技术服务团队。在虚拟现实与数字孪生领域，成为客户遇到相关需求时第一个想到的名字。</p>
+                </div>
+                <div class="mission-card">
+                    <h3>我们的价值观</h3>
+                    <p>技术为本、客户至上、诚信交付。每一行代码都要对客户负责，每一个项目都要经得起时间检验。不夸大、不承诺做不到的事情。</p>
+                </div>
+                <div class="mission-card">
+                    <h3>我们的承诺</h3>
+                    <p>透明沟通、按时交付、持续支持。项目过程中保持信息透明，遇到问题及时沟通，交付后提供长期技术支持与维护服务。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Differentiators -->
+    <section class="differentiators">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">差异化优势</span>
+                <h2 class="section-title">我们与众不同的地方</h2>
+            </div>
+            <div class="diff-list">
+                <div class="diff-item">
+                    <div class="diff-number">01</div>
+                    <div class="diff-content">
+                        <h3>技术深度与广度兼具</h3>
+                        <p>团队成员既有深耕Unity/Unreal引擎多年的资深开发者，也有熟悉Web前端、后端、嵌入式全栈的工程师。一个项目团队就能覆盖全部技术栈，不需要客户对接多家供应商。</p>
+                    </div>
+                </div>
+                <div class="diff-item">
+                    <div class="diff-number">02</div>
+                    <div class="diff-content">
+                        <h3>军工级品质意识</h3>
+                        <p>服务军工行业的经历让我们养成了极高的品质标准。代码规范、文档完整、数据安全、交付严谨——这些不是我们的加分项，而是我们的基础要求。</p>
+                    </div>
+                </div>
+                <div class="diff-item">
+                    <div class="diff-number">03</div>
+                    <div class="diff-content">
+                        <h3>从需求到落地的全流程能力</h3>
+                        <p>很多技术团队只会写代码，但我们能从业务视角出发，帮客户梳理需求、设计方案、搭建原型、开发交付、培训运维。我们卖的不是代码，是解决问题的能力。</p>
+                    </div>
+                </div>
+                <div class="diff-item">
+                    <div class="diff-number">04</div>
+                    <div class="diff-content">
+                        <h3>技术培训与知识传递</h3>
+                        <p>我们不仅交付项目，更注重知识传递。每个项目结束后，我们会为客户团队提供技术培训，帮助客户建立自己的技术能力，而不是永远依赖外包。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>想进一步了解我们？</h2>
+            <p>欢迎与我们交流，无论是否有项目，都欢迎聊聊你的想法</p>
+            <button class="btn btn-lg" onclick="navigate('contact')">联系我们</button>
+        </div>
+    </section>
+</div>
+
+<!-- ===== Page: Services ===== -->
+<div class="page" id="page-services">
+    <section class="page-hero">
+        <div class="container">
+            <h1>我们的服务</h1>
+            <p>从虚拟现实到数字孪生，从游戏开发到技术培训——专业技术，一站式交付</p>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">服务矩阵</span>
+                <h2 class="section-title">我们能为你做什么</h2>
+            </div>
+            <div class="services-page-grid">
+                <div class="service-detail-card">
+                    <div class="service-detail-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3>VR/AR 虚拟现实开发</h3>
+                    <p>基于Unity与Unreal Engine，为各行业提供沉浸式VR/AR应用开发服务，支持主流VR设备。</p>
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            VR培训系统开发
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            AR增强现实应用
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            高斯泼溅场景重建
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            数字展厅/展馆
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-detail-card">
+                    <div class="service-detail-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                            <line x1="8" y1="21" x2="16" y2="21"/>
+                            <line x1="12" y1="17" x2="12" y2="21"/>
+                        </svg>
+                    </div>
+                    <h3>工业数字孪生</h3>
+                    <p>构建高精度工业数字孪生系统，实现物理设备与虚拟模型的实时映射与智能分析。</p>
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            工厂/产线数字孪生
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            设备仿真与监控
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            智慧城市可视化
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            数据大屏开发
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-detail-card">
+                    <div class="service-detail-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="6 3 20 12 6 21 6 3"/>
+                        </svg>
+                    </div>
+                    <h3>小游戏 / H5互动开发</h3>
+                    <p>为品牌营销、活动推广打造有趣的互动小游戏与H5应用，助力用户增长与品牌传播。</p>
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            微信小游戏开发
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            H5营销互动
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            品牌联名游戏
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            小游戏代运营
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-detail-card">
+                    <div class="service-detail-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+                            <line x1="12" y1="18" x2="12.01" y2="18"/>
+                        </svg>
+                    </div>
+                    <h3>小程序 / 网站开发</h3>
+                    <p>微信小程序、企业官网、Web应用开发，提供从设计到部署的全流程服务。</p>
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            微信/支付宝小程序
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            企业官网/品牌站
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Web管理系统
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            WebGL 3D网页
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-detail-card">
+                    <div class="service-detail-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                            <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                        </svg>
+                    </div>
+                    <h3>技术培训</h3>
+                    <p>面向企业与个人的Unity开发、数字孪生、VR开发技术培训，实战导向，学以致用。</p>
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            Unity开发实战培训
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            数字孪生技术入门
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            VR开发企业内训
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            高校实训课程合作
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-detail-card">
+                    <div class="service-detail-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                        </svg>
+                    </div>
+                    <h3>技术咨询与架构</h3>
+                    <p>为企业提供技术选型、架构设计、性能优化等专业咨询服务，助力技术决策。</p>
+                    <div class="service-features">
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            技术方案咨询
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            系统架构设计
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            性能优化诊断
+                        </div>
+                        <div class="service-feature">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                            技术团队顾问
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Steps -->
+    <section class="process-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">合作流程</span>
+                <h2 class="section-title">四步开启合作</h2>
+                <p class="section-desc">清晰透明的流程，让项目推进更可控</p>
+            </div>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">01</div>
+                    <h3>需求沟通</h3>
+                    <p>深入了解你的业务场景与目标，明确项目需求与预期效果</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">02</div>
+                    <h3>方案报价</h3>
+                    <p>提供详细的技术方案、时间规划与报价，确认后启动项目</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">03</div>
+                    <h3>开发交付</h3>
+                    <p>敏捷开发，定期汇报进度，分阶段交付可验证的成果</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">04</div>
+                    <h3>运维支持</h3>
+                    <p>交付后提供培训与技术支持，确保系统稳定运行</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">常见问题</span>
+                <h2 class="section-title">你可能想知道的</h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        一个VR项目大概需要多长时间？
+                        <svg class="faq-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p>项目周期取决于复杂度。简单的VR体验项目通常需要4-8周，中等规模的培训系统需要2-3个月，大型数字孪生项目可能需要半年以上。我们会在需求沟通后给出详细的时间规划。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        项目费用是怎么计算的？
+                        <svg class="faq-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p>我们按项目规模和复杂度报价，而不是按人天计费。需求明确后，我们会提供固定总价，中途不会随意加价。付款通常按阶段支付：启动付30%，中期付40%，验收付30%。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        我们没有技术背景，能合作吗？
+                        <svg class="faq-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p>当然可以。我们服务过很多非技术背景的客户，会用通俗易懂的语言沟通，帮你把想法转化为技术方案。你只需要告诉我们你想解决什么问题，剩下的交给我们。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        项目交付后有售后维护吗？
+                        <svg class="faq-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p>所有项目都包含3个月免费质保期，期间发现bug免费修复。质保期后可以选择签订年度维护协议，提供持续的技术支持与系统更新服务。</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        可以只做部分开发吗？比如我们自己有团队
+                        <svg class="faq-toggle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                    </div>
+                    <div class="faq-answer">
+                        <p>可以的。我们接受模块化合作，比如只做3D建模、只做前端开发、只做某个功能模块。也可以作为技术顾问加入你的团队，提供技术指导和代码评审服务。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>有具体需求？聊聊看</h2>
+            <p>告诉我们你的想法，我们会在24小时内回复</p>
+            <button class="btn btn-lg" onclick="navigate('contact')">获取方案报价</button>
+        </div>
+    </section>
+</div>
+
+<!-- ===== Page: Portfolio ===== -->
+<div class="page" id="page-portfolio">
+    <section class="page-hero">
+        <div class="container">
+            <h1>作品集</h1>
+            <p>精选项目案例，见证技术如何创造价值</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <!-- Filter Bar -->
+            <div class="portfolio-filter">
+                <button class="filter-btn active" data-filter="all" onclick="filterPortfolio('all')">全部</button>
+                <button class="filter-btn" data-filter="vr" onclick="filterPortfolio('vr')">VR/AR</button>
+                <button class="filter-btn" data-filter="digital-twin" onclick="filterPortfolio('digital-twin')">数字孪生</button>
+                <button class="filter-btn" data-filter="game" onclick="filterPortfolio('game')">小游戏</button>
+                <button class="filter-btn" data-filter="web" onclick="filterPortfolio('web')">网站/小程序</button>
+            </div>
+
+            <!-- Portfolio Grid -->
+            <div class="portfolio-grid">
+                <div class="portfolio-card" data-category="vr">
+                    <img class="portfolio-card-image" src="https://images.unsplash.com/photo-1622979135225-247b2333e522?w=600&h=400&fit=crop" alt="VR军事训练系统项目" loading="lazy">
+                    <div class="portfolio-card-content">
+                        <span class="portfolio-category">VR/AR</span>
+                        <h3>VR军事模拟训练系统</h3>
+                        <p>为某军工单位开发的沉浸式VR训练系统，支持多人协同训练场景。</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-category="digital-twin">
+                    <img class="portfolio-card-image" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop" alt="工厂数字孪生系统" loading="lazy">
+                    <div class="portfolio-card-content">
+                        <span class="portfolio-category">数字孪生</span>
+                        <h3>智能工厂数字孪生平台</h3>
+                        <p>为制造企业打造的产线数字孪生系统，实现设备实时监控与预测性维护。</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-category="game">
+                    <img class="portfolio-card-image" src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600&h=400&fit=crop" alt="营销小游戏项目" loading="lazy">
+                    <div class="portfolio-card-content">
+                        <span class="portfolio-category">小游戏</span>
+                        <h3>品牌联名营销小游戏</h3>
+                        <p>为知名快消品牌开发的微信小游戏，上线7天突破10万访问量。</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-category="web">
+                    <img class="portfolio-card-image" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop" alt="企业官网开发项目" loading="lazy">
+                    <div class="portfolio-card-content">
+                        <span class="portfolio-category">网站开发</span>
+                        <h3>科技企业品牌官网</h3>
+                        <p>为某上市科技公司设计开发的品牌官网，含WebGL 3D交互展示。</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-category="vr">
+                    <img class="portfolio-card-image" src="https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=600&h=400&fit=crop" alt="VR数字展厅项目" loading="lazy">
+                    <div class="portfolio-card-content">
+                        <span class="portfolio-category">VR/AR</span>
+                        <h3>VR数字展厅体验馆</h3>
+                        <p>为某大学打造的VR校园展厅，沉浸式展示学校历史与科研成果。</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-category="digital-twin">
+                    <img class="portfolio-card-image" src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=400&fit=crop" alt="智慧城市可视化项目" loading="lazy">
+                    <div class="portfolio-card-content">
+                        <span class="portfolio-category">数字孪生</span>
+                        <h3>智慧城市数据可视化</h3>
+                        <p>为某地级市开发的城市运营指挥中心可视化大屏系统。</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-category="game">
+                    <img class="portfolio-card-image" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=600&h=400&fit=crop" alt="H5互动小游戏" loading="lazy">
+                    <div class="portfolio-card-content">
+                        <span class="portfolio-category">小游戏</span>
+                        <h3>节日营销H5互动</h3>
+                        <p>为银行客户开发的春节营销H5互动游戏，用户参与率超过30%。</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-category="web">
+                    <img class="portfolio-card-image" src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&h=400&fit=crop" alt="小程序开发项目" loading="lazy">
+                    <div class="portfolio-card-content">
+                        <span class="portfolio-category">小程序</span>
+                        <h3>智慧园区管理小程序</h3>
+                        <p>为产业园区开发的微信小程序，集成门禁、停车、报修等功能。</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" data-category="vr">
+                    <img class="portfolio-card-image" src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?w=600&h=400&fit=crop" alt="高斯泼溅扫描项目" loading="lazy">
+                    <div class="portfolio-card-content">
+                        <span class="portfolio-category">VR/AR</span>
+                        <h3>高斯泼溅场景重建</h3>
+                        <p>使用3D高斯泼溅技术，为影视行业拍摄制作高精度数字化场景资产。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>想做类似的项目？</h2>
+            <p>告诉我们你的需求，让我们一起打造下一个成功案例</p>
+            <button class="btn btn-lg" onclick="navigate('contact')">开始项目咨询</button>
+        </div>
+    </section>
+</div>
+
+<!-- ===== Page: Contact ===== -->
+<div class="page" id="page-contact">
+    <section class="page-hero">
+        <div class="container">
+            <h1>联系我们</h1>
+            <p>有项目想法或技术问题？欢迎随时与我们交流</p>
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>让我们开始对话</h3>
+                    <p>填写右侧表单或通过以下方式直接联系我们，我们会在24小时内回复。</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                    <polyline points="22,6 12,13 2,6"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>邮箱</h4>
+                                <p>contact@alpha-tech.dev</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>电话</h4>
+                                <p>400-888-0000</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>地址</h4>
+                                <p>四川省成都市高新区</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12 6 12 12 16 14"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>工作时间</h4>
+                                <p>周一至周五 9:00 - 18:00</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-links" style="margin-top: 32px;">
+                        <a href="#" onclick="showToast('微信公众号'); return false;" aria-label="微信">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348z"/></svg>
+                        </a>
+                        <a href="#" onclick="showToast('GitHub'); return false;" aria-label="GitHub">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </a>
+                        <a href="#" onclick="showToast('B站'); return false;" aria-label="B站">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56-1.004-1.004-1.524-2.262-1.56-3.773v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.658.373-.907l.027-.027c.249-.249.55-.373.906-.373.356 0 .658.124.907.373L8.96 4.653h6.027L15.96 2.667c.249-.249.55-.373.907-.373.356 0 .657.124.906.373.267.249.396.55.396.907 0 .355-.129.657-.396.906l-1.16 1.173z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <form class="contact-form" onsubmit="handleContactForm(event)">
+                        <h3 style="margin-bottom: 24px; color: var(--color-primary);">发送消息</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="name">姓名 *</label>
+                                <input type="text" id="name" class="form-input" placeholder="请输入您的姓名" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="phone">电话</label>
+                                <input type="tel" id="phone" class="form-input" placeholder="请输入您的电话">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="email">邮箱 *</label>
+                            <input type="email" id="email" class="form-input" placeholder="请输入您的邮箱" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="message">留言内容 *</label>
+                            <textarea id="message" class="form-textarea" placeholder="请描述您的项目需求或问题..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">提交咨询</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Map Placeholder -->
+            <div class="map-placeholder">
+                地图位置：四川省成都市高新区
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- ===== Footer ===== -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a class="logo" style="color: white;" onclick="navigate('home')">
+                    <div class="logo-icon">A</div>
+                    <span>Alpha的技术博客</span>
+                </a>
+                <p>专注虚拟现实开发、工业数字孪生、小游戏与小程序开发，为各行业客户提供专业技术解决方案。</p>
+            </div>
+            <div class="footer-col">
+                <h4>快速链接</h4>
+                <ul>
+                    <li><a onclick="navigate('home')">首页</a></li>
+                    <li><a onclick="navigate('about')">关于我们</a></li>
+                    <li><a onclick="navigate('services')">服务</a></li>
+                    <li><a onclick="navigate('portfolio')">作品集</a></li>
+                    <li><a onclick="navigate('contact')">联系我们</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>服务项目</h4>
+                <ul>
+                    <li><a onclick="navigate('services')">VR/AR开发</a></li>
+                    <li><a onclick="navigate('services')">数字孪生</a></li>
+                    <li><a onclick="navigate('services')">小游戏开发</a></li>
+                    <li><a onclick="navigate('services')">小程序开发</a></li>
+                    <li><a onclick="navigate('services')">技术培训</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>联系方式</h4>
+                <ul>
+                    <li>邮箱：contact@alpha-tech.dev</li>
+                    <li>电话：400-888-0000</li>
+                    <li>地址：四川省成都市</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Alpha的技术博客. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#" onclick="showToast('微信公众号'); return false;" aria-label="微信">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.406-.032zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg>
+                </a>
+                <a href="#" onclick="showToast('GitHub'); return false;" aria-label="GitHub">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                </a>
+                <a href="#" onclick="showToast('B站'); return false;" aria-label="B站">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56-1.004-1.004-1.524-2.262-1.56-3.773v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.658.373-.907l.027-.027c.249-.249.55-.373.906-.373.356 0 .658.124.907.373L8.96 4.653h6.027L15.96 2.667c.249-.249.55-.373.907-.373.356 0 .657.124.906.373.267.249.396.55.396.907 0 .355-.129.657-.396.906l-1.16 1.173zM5.333 7.24c-.746.018-1.373.278-1.88.78-.502.503-.767 1.134-.793 1.894v7.52c.026.76.291 1.391.793 1.894.507.502 1.134.762 1.88.78h13.334c.746-.018 1.373-.278 1.88-.78.502-.503.767-1.134.793-1.894v-7.52c-.026-.76-.291-1.391-.793-1.894-.507-.502-1.134-.762-1.88-.78H5.333zm2.0 3.027h1.067c.311 0 .573.107.787.32.213.213.32.475.32.786v1.84c0 .311-.107.573-.32.787a1.075 1.075 0 0 1-.787.32H7.333a1.075 1.075 0 0 1-.786-.32 1.075 1.075 0 0 1-.32-.787v-1.84c0-.311.107-.573.32-.786.213-.213.475-.32.786-.32zm7.334 0h1.066c.311 0 .573.107.787.32.213.213.32.475.32.786v1.84c0 .311-.107.573-.32.787a1.075 1.075 0 0 1-.787.32h-1.066a1.075 1.075 0 0 1-.787-.32 1.075 1.075 0 0 1-.32-.787v-1.84c0-.311.107-.573.32-.786.214-.213.476-.32.787-.32z"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+    // ===== Navigation =====
+    function navigate(page) {
+        // Hide all pages
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        // Show target page
+        document.getElementById('page-' + page).classList.add('active');
+        // Update nav active state
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.toggle('active', link.dataset.page === page);
+        });
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Close mobile menu
+        document.getElementById('mobileNav').classList.remove('open');
+    }
+
+    // ===== Mobile Menu =====
+    function toggleMobileMenu() {
+        document.getElementById('mobileNav').classList.toggle('open');
+    }
+
+    // ===== Toast =====
+    function showToast(message) {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 2000);
+    }
+
+    // ===== FAQ Toggle =====
+    function toggleFaq(element) {
+        const faqItem = element.closest('.faq-item');
+        faqItem.classList.toggle('open');
+    }
+
+    // ===== Portfolio Filter =====
+    function filterPortfolio(category) {
+        // Update active button
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.filter === category);
+        });
+        // Filter cards
+        document.querySelectorAll('.portfolio-card').forEach(card => {
+            if (category === 'all' || card.dataset.category === category) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    // ===== Contact Form =====
+    function handleContactForm(e) {
+        e.preventDefault();
+        showToast('提交成功！我们会尽快联系您');
+        e.target.reset();
+    }
+</script>
+
+</body>
+</html>
