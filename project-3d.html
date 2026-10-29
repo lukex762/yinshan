@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>高精度 3D 模型与 Web 展示 | 邓晓军</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+    --bg-deep: #0a0a0a;
+    --bg-card: #151515;
+    --red: #DA020E;
+    --border: rgba(255,255,255,.08);
+    --text-2: #a0a0a0;
+    --mono: 'JetBrains Mono', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    background: var(--bg-deep);
+    color: #fff;
+    font-family: 'Inter', 'Noto Sans SC', system-ui, sans-serif;
+    line-height: 1.7;
+    min-height: 100vh;
+    padding: 40px 24px 80px;
+    background-image:
+        linear-gradient(rgba(218,2,14,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(218,2,14,.05) 1px, transparent 1px);
+    background-size: 64px 64px;
+}
+.wrap { max-width: 1100px; margin: 0 auto; }
+.back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-2);
+    text-decoration: none;
+    transition: color .25s;
+}
+.back:hover { color: var(--red); }
+.label {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .15em;
+    color: var(--red);
+    margin: 38px 0 10px;
+}
+h1 { font-size: clamp(26px, 4vw, 40px); font-weight: 900; letter-spacing: -.02em; }
+.desc { max-width: 720px; margin-top: 14px; color: var(--text-2); font-size: 15px; }
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 54px 0 22px;
+    font-size: 19px;
+    font-weight: 700;
+}
+.section-title::before {
+    content: '';
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--red);
+    box-shadow: 0 0 10px rgba(218,2,14,.7);
+}
+.gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.gallery figure {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg-card);
+    transition: all .3s;
+}
+.gallery figure:hover {
+    transform: translateY(-4px);
+    border-color: rgba(218,2,14,.35);
+    box-shadow: 0 18px 48px -20px rgba(218,2,14,.5);
+}
+.gallery img { width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block; }
+.gallery figcaption {
+    padding: 12px 16px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-2);
+    border-top: 1px solid var(--border);
+}
+.models { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.model-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 22px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    text-decoration: none;
+    color: inherit;
+    transition: all .3s;
+}
+.model-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(218,2,14,.4);
+    box-shadow: 0 16px 40px -18px rgba(218,2,14,.45);
+}
+.model-icon {
+    width: 46px; height: 46px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: rgba(218,2,14,.12);
+    border: 1px solid rgba(218,2,14,.25);
+    color: var(--red);
+}
+.model-name { font-size: 15px; font-weight: 600; }
+.model-meta { font-family: var(--mono); font-size: 12px; color: var(--text-2); }
+.model-dl { margin-left: auto; font-family: var(--mono); font-size: 12px; color: var(--red); white-space: nowrap; }
+.note {
+    margin-top: 26px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: #666;
+}
+@media (max-width: 900px) {
+    .gallery { grid-template-columns: 1fr; }
+    .models { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+    <a class="back" href="index.html">← 返回主页</a>
+
+    <div class="label">// 项目实战 · 3D建模</div>
+    <h1>高精度 3D 模型与 Web 展示</h1>
+    <p class="desc">使用 3ds Max 与 Blender 进行高精度建模与材质渲染，结合 Three.js 实现浏览器端的在线交互展示。</p>
+
+    <div class="section-title">Blender 渲染成果</div>
+    <div class="gallery">
+        <figure>
+            <img src="assets/projects/living-room.png" alt="客厅场景渲染图" loading="lazy">
+            <figcaption>客厅场景 · Blender 渲染</figcaption>
+        </figure>
+        <figure>
+            <img src="assets/projects/clouds.png" alt="云朵场景渲染图" loading="lazy">
+            <figcaption>云朵场景 · Blender 渲染</figcaption>
+        </figure>
+        <figure>
+            <img src="assets/projects/shelf.png" alt="置物架场景渲染图" loading="lazy">
+            <figcaption>置物架场景 · Blender 渲染</figcaption>
+        </figure>
+    </div>
+
+    <div class="section-title">3ds Max 模型工程</div>
+    <div class="models">
+        <a class="model-card" href="assets/projects/pistol.max" download>
+            <span class="model-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                    <path d="M3.27 6.96L12 12.01l8.73-5.05"></path>
+                    <path d="M12 22.08V12"></path>
+                </svg>
+            </span>
+            <span>
+                <span class="model-name">手枪中模</span>
+                <span class="model-meta">pistol.max · 2.6 MB</span>
+            </span>
+            <span class="model-dl">下载 ↓</span>
+        </a>
+        <a class="model-card" href="assets/projects/qmjian.max" download>
+            <span class="model-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                    <path d="M3.27 6.96L12 12.01l8.73-5.05"></path>
+                    <path d="M12 22.08V12"></path>
+                </svg>
+            </span>
+            <span>
+                <span class="model-name">QMJIAN</span>
+                <span class="model-meta">qmjian.max · 1.0 MB</span>
+            </span>
+            <span class="model-dl">下载 ↓</span>
+        </a>
+    </div>
+
+    <div class="note">// 模型文件为 3ds Max 工程格式（.max），需使用 3ds Max 打开</div>
+</div>
+</body>
+</html>

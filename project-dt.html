@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>校园数字孪生可视化管理平台 | 邓晓军</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+    --bg-deep: #0a0a0a;
+    --bg-card: #151515;
+    --red: #DA020E;
+    --border: rgba(255,255,255,.08);
+    --text-2: #a0a0a0;
+    --mono: 'JetBrains Mono', monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    background: var(--bg-deep);
+    color: #fff;
+    font-family: 'Inter', 'Noto Sans SC', system-ui, sans-serif;
+    line-height: 1.7;
+    min-height: 100vh;
+    padding: 40px 24px 80px;
+    background-image:
+        linear-gradient(rgba(218,2,14,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(218,2,14,.05) 1px, transparent 1px);
+    background-size: 64px 64px;
+}
+.wrap { max-width: 1000px; margin: 0 auto; }
+.back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-2);
+    text-decoration: none;
+    transition: color .25s;
+}
+.back:hover { color: var(--red); }
+.label {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .15em;
+    color: var(--red);
+    margin: 38px 0 10px;
+}
+h1 { font-size: clamp(26px, 4vw, 40px); font-weight: 900; letter-spacing: -.02em; }
+.desc { max-width: 760px; margin-top: 14px; color: var(--text-2); font-size: 15px; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.chip {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    color: var(--red);
+    background: rgba(218,2,14,.1);
+    border: 1px solid rgba(218,2,14,.2);
+}
+.video-card {
+    margin-top: 40px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 24px 70px -30px rgba(218,2,14,.35);
+}
+.video-card video {
+    display: block;
+    width: 100%;
+    background: #000;
+}
+.video-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 16px 22px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-2);
+    border-top: 1px solid var(--border);
+}
+.video-meta b { color: var(--red); font-weight: 500; }
+</style>
+</head>
+<body>
+<div class="wrap">
+    <a class="back" href="index.html">← 返回主页</a>
+
+    <div class="label">// 项目实战 · 数字孪生</div>
+    <h1>校园数字孪生可视化管理平台</h1>
+    <p class="desc">结合 CAD 图纸与 UE5 引擎，构建校园三维模型并实时接入数据，实现沉浸式的数字孪生管理原型。</p>
+
+    <div class="tags">
+        <span class="chip">[UE5]</span>
+        <span class="chip">[数字孪生]</span>
+        <span class="chip">[IoT]</span>
+    </div>
+
+    <div class="video-card">
+        <video controls autoplay muted playsinline preload="metadata" src="assets/projects/digital-twin.mp4"></video>
+        <div class="video-meta">
+            <span>演示视频 · digital-twin.mp4</span>
+            <span><b>2.2 MB</b> · 校园三维场景</span>
+        </div>
+    </div>
+</div>
+</body>
+</html>

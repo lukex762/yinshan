@@ -1,17 +1,1792 @@
-<!doctype html>
+﻿<!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="邓晓军 - VR / 3D / 引擎开发，红魔精神，代码人生。" />
-    <title>邓晓军 | 红魔开发者 · Manchester United 🔴</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>邓晓军 | 红魔开发者 · Manchester United</title>
+<meta name="description" content="邓晓军 - 虚拟现实技术应用，专注 3D建模、引擎开发、数字孪生与互动小程序开发。红魔精神，代码人生。">
+<meta name="keywords" content="邓晓军,虚拟现实,Unity,Unreal Engine,C#,3D建模,数字孪生,微信小游戏,曼联">
+<meta name="author" content="邓晓军">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='%23DA020E'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --bg-deep: #0a0a0a;
+    --bg-card: #151515;
+    --manchester-red: #DA020E;
+    --red-glow: rgba(218, 2, 14, 0.55);
+    --text-primary: #ffffff;
+    --text-secondary: #a0a0a0;
+    --text-muted: #666666;
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-red: rgba(218, 2, 14, 0.35);
+    --font-sans: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { background: var(--bg-deep); }
+
+body {
+    font-family: var(--font-sans);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* ===== 极客背景 ===== */
+.bg-grid {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+        linear-gradient(rgba(218, 2, 14, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(218, 2, 14, 0.05) 1px, transparent 1px);
+    background-size: 64px 64px;
+}
+
+.bg-code {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--manchester-red);
+    line-height: 1.7;
+}
+
+.bg-code span {
+    position: absolute;
+    white-space: nowrap;
+    opacity: 0.05;
+    animation: codeFloat 22s ease-in-out infinite;
+}
+
+@keyframes codeFloat {
+    0%, 100% { transform: translate(0, 0); }
+    33% { transform: translate(10px, -14px); }
+    66% { transform: translate(-8px, 8px); }
+}
+
+#bg-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.cursor-glow {
+    position: fixed;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(218, 2, 14, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s;
+}
+
+/* ===== SPA 视图 ===== */
+.view {
+    position: relative;
+    z-index: 2;
+    display: none;
+    padding: 116px 48px 80px;
+    min-height: 100vh;
+}
+
+.view.active {
+    display: block;
+    animation: viewIn 0.45s cubic-bezier(.2,.7,.2,1) both;
+}
+
+@keyframes viewIn {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.container { max-width: 1200px; margin: 0 auto; }
+.container-wide { max-width: 1400px; margin: 0 auto; }
+
+.code-label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--manchester-red);
+    margin-bottom: 12px;
+}
+
+.block-title {
+    font-size: clamp(28px, 3.5vw, 42px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 48px;
+}
+
+/* ===== 导航 ===== */
+.nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 48px;
+    background: rgba(10, 10, 10, 0.75);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-family: var(--font-sans);
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+}
+
+.nav-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--manchester-red);
+    box-shadow: 0 0 12px rgba(218, 2, 14, 0.8);
+    animation: dotPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.45; transform: scale(0.75); }
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+}
+
+.nav-link {
+    position: relative;
+    background: none;
+    border: none;
+    padding: 0 0 4px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: color 0.25s;
+}
+
+.nav-link:hover { color: #fff; }
+.nav-link.active { color: #fff; }
+
+.nav-link.active::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: -2px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--manchester-red);
+    box-shadow: 0 0 10px var(--red-glow);
+}
+
+.btn-red {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 8px;
+    background: var(--manchester-red);
+    color: #fff;
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 0 16px var(--red-glow);
+    transition: all 0.3s cubic-bezier(.2,.7,.2,1);
+}
+
+.btn-red:hover {
+    filter: brightness(1.12);
+    transform: translateY(-3px);
+    box-shadow: 0 0 34px var(--red-glow), 0 12px 28px -12px rgba(218, 2, 14, 0.7);
+}
+
+.btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: 8px;
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(.2,.7,.2,1);
+}
+
+.btn-outline:hover {
+    transform: translateY(-3px);
+    border-color: var(--manchester-red);
+    color: var(--manchester-red);
+    box-shadow: 0 0 24px -6px var(--red-glow);
+}
+
+.nav-cta {
+    padding: 11px 22px;
+    border: none;
+    border-radius: 8px;
+    background: var(--manchester-red);
+    color: #fff;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 0 14px var(--red-glow);
+    transition: all 0.3s cubic-bezier(.2,.7,.2,1);
+}
+
+.nav-cta:hover {
+    filter: brightness(1.12);
+    transform: translateY(-2px);
+    box-shadow: 0 0 28px var(--red-glow);
+}
+
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    padding: 6px;
+}
+
+.drawer-cta { display: none; }
+
+/* ===== Hero ===== */
+.hero {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    align-items: center;
+    gap: 56px;
+    min-height: calc(100vh - 196px);
+}
+
+.hero-text { min-width: 0; }
+
+.hero h1 {
+    font-size: clamp(34px, 5vw, 64px);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+    margin-bottom: 26px;
+}
+
+.hero h1 em {
+    font-style: normal;
+    background: linear-gradient(90deg, #DA020E 0%, #ffffff 55%, #DA020E 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 18px rgba(218, 2, 14, 0.35));
+}
+
+.hero-desc {
+    max-width: 560px;
+    font-size: 15.5px;
+    line-height: 1.85;
+    color: var(--text-secondary);
+    margin-bottom: 36px;
+}
+
+.hero-desc b {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.88);
+}
+
+.hero-actions { display: flex; flex-wrap: wrap; gap: 16px; }
+
+.hero-visual {
+    position: relative;
+    height: 560px;
+    min-width: 0;
+}
+
+.crest-halo {
+    position: absolute;
+    inset: 6%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(218, 2, 14, 0.16) 0%, rgba(218, 2, 14, 0) 70%);
+    animation: haloBreath 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes haloBreath {
+    0%, 100% { opacity: 0.55; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.06); }
+}
+
+.crest-wrap {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: crestFloat 6s ease-in-out infinite;
+}
+
+@keyframes crestFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+.crest {
+    width: min(440px, 100%);
+    height: auto;
+    animation: crestGlow 3.5s ease-in-out infinite;
+}
+
+@keyframes crestGlow {
+    0%, 100% { filter: drop-shadow(0 0 12px rgba(218, 2, 14, 0.55)); }
+    50% { filter: drop-shadow(0 0 28px rgba(218, 2, 14, 0.9)); }
+}
+
+.scan-line {
+    position: absolute;
+    left: 6%; right: 6%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(218, 2, 14, 0.75), transparent);
+    box-shadow: 0 0 14px rgba(218, 2, 14, 0.6);
+    animation: scanMove 3.8s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes scanMove {
+    0% { top: 8%; opacity: 0; }
+    12% { opacity: 1; }
+    88% { opacity: 1; }
+    100% { top: 92%; opacity: 0; }
+}
+
+.particles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+
+.particles span {
+    position: absolute;
+    font-family: var(--font-mono);
+    color: rgba(218, 2, 14, 0.35);
+    text-shadow: 0 0 6px rgba(218, 2, 14, 0.4);
+    animation: particleFloat linear infinite;
+}
+
+@keyframes particleFloat {
+    from { transform: translateY(20px); opacity: 0; }
+    20% { opacity: 0.55; }
+    80% { opacity: 0.55; }
+    to { transform: translateY(-30px); opacity: 0; }
+}
+
+/* ===== 卡片通用 ===== */
+.card {
+    position: relative;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(.2,.7,.2,1);
+}
+
+.card:hover {
+    border-color: var(--border-red);
+    transform: translateY(-4px);
+    box-shadow: 0 18px 48px -20px rgba(218, 2, 14, 0.5);
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(218, 2, 14, 0.08), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.card:hover::before { opacity: 1; }
+
+/* ===== Projects ===== */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 26px;
+}
+
+.project-thumb {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #161616 0%, #0a0a0a 100%);
+    overflow: hidden;
+}
+
+.project-thumb::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: linear-gradient(45deg, transparent 40%, rgba(218, 2, 14, 0.14) 50%, transparent 60%);
+}
+
+a.project-thumb {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.project-thumb img,
+.project-thumb video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.thumb-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    display: flex;
+    align-items: flex-end;
+    padding: 16px;
+    background: linear-gradient(180deg, transparent 45%, rgba(10, 10, 10, 0.72));
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.project-thumb.clickable:hover .thumb-overlay { opacity: 1; }
+
+.thumb-overlay span {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    background: rgba(218, 2, 14, 0.9);
+    color: #fff;
+    box-shadow: 0 0 16px rgba(218, 2, 14, 0.5);
+}
+
+.carousel { position: relative; width: 100%; height: 100%; }
+
+.carousel .slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.7s ease;
+}
+
+.carousel .slide.active { opacity: 1; }
+
+.carousel-dots {
+    position: absolute;
+    left: 50%;
+    bottom: 12px;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    gap: 8px;
+}
+
+.carousel-dots i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.35);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.carousel-dots i.active {
+    background: var(--manchester-red);
+    box-shadow: 0 0 8px var(--red-glow);
+}
+
+.thumb-videos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    width: 100%;
+    height: 100%;
+    background: #000;
+}
+
+.thumb-videos video { width: 100%; height: 100%; object-fit: cover; }
+
+.project-tag-big {
+    position: relative;
+    z-index: 1;
+    font-family: var(--font-mono);
+    font-size: 78px;
+    font-weight: 800;
+    color: rgba(218, 2, 14, 0.32);
+    text-shadow: 0 0 32px rgba(218, 2, 14, 0.22);
+    user-select: none;
+    transition: all 0.4s;
+}
+
+.card:hover .project-tag-big {
+    color: rgba(218, 2, 14, 0.55);
+    text-shadow: 0 0 44px rgba(218, 2, 14, 0.5);
+}
+
+.project-locator {
+    position: absolute;
+    top: 16px; right: 16px;
+    z-index: 1;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    color: var(--manchester-red);
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(218, 2, 14, 0.3);
+}
+
+.project-body { padding: 26px 28px 30px; }
+
+.tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+
+.chip {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    color: var(--manchester-red);
+    background: rgba(218, 2, 14, 0.1);
+    border: 1px solid rgba(218, 2, 14, 0.2);
+}
+
+.project-title {
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    transition: color 0.3s;
+}
+
+.card:hover .project-title { color: var(--manchester-red); }
+
+.project-desc {
+    font-size: 14px;
+    line-height: 1.75;
+    color: var(--text-secondary);
+}
+
+.project-more {
+    margin-top: 16px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--manchester-red);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.card:hover .project-more { opacity: 1; }
+
+/* ===== Skills ===== */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.skill-card { padding: 28px; }
+
+.skill-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: rgba(218, 2, 14, 0.12);
+    border: 1px solid rgba(218, 2, 14, 0.25);
+    color: var(--manchester-red);
+    margin-bottom: 20px;
+}
+
+.skill-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+
+.skill-tech {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: rgba(218, 2, 14, 0.8);
+    margin-bottom: 12px;
+}
+
+.skill-desc {
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin-bottom: 22px;
+    min-height: 46px;
+}
+
+.bar {
+    height: 6px;
+    border-radius: 99px;
+    background: rgba(255, 255, 255, 0.06);
+    overflow: hidden;
+}
+
+.bar i {
+    display: block;
+    height: 100%;
+    width: var(--lvl);
+    border-radius: 99px;
+    background: linear-gradient(90deg, #DA020E, #ff3b47);
+    box-shadow: 0 0 8px rgba(218, 2, 14, 0.6);
+}
+
+.view.active .bar i { animation: barFill 1s cubic-bezier(.2,.7,.2,1) both; }
+
+@keyframes barFill {
+    from { width: 0; }
+    to { width: var(--lvl); }
+}
+
+.bar-meta {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.bar-meta b { color: var(--manchester-red); font-weight: 500; }
+
+/* ===== About ===== */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: start;
+}
+
+.about-text p {
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--text-secondary);
+    margin-bottom: 18px;
+}
+
+.about-text p b { color: #fff; font-weight: 600; }
+.about-text p code {
+    font-family: var(--font-mono);
+    font-size: 13.5px;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 40px;
+    padding: 28px 0;
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.stat-num {
+    font-family: var(--font-mono);
+    font-size: 34px;
+    font-weight: 800;
+    line-height: 1.1;
+    background: linear-gradient(90deg, #DA020E 0%, #ffffff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.stat-label { font-size: 12.5px; color: var(--text-muted); margin-top: 6px; }
+
+.timeline-card { padding: 32px; }
+
+.timeline-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 22px; }
+
+.tl-item {
+    position: relative;
+    padding: 20px 0 20px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.tl-item:last-child { border-bottom: none; }
+
+.tl-item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 27px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--manchester-red);
+    box-shadow: 0 0 0 3px rgba(218, 2, 14, 0.15);
+}
+
+.tl-year {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--manchester-red);
+    margin-bottom: 6px;
+}
+
+.tl-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+
+.tl-desc { font-size: 13px; line-height: 1.65; color: var(--text-secondary); }
+
+/* ===== Contact ===== */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.contact-list { display: flex; flex-direction: column; gap: 16px; }
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 20px 22px;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    font-family: var(--font-sans);
+    transition: all 0.3s cubic-bezier(.2,.7,.2,1);
+}
+
+.contact-item:hover {
+    border-color: var(--border-red);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px -18px rgba(218, 2, 14, 0.45);
+}
+
+.contact-icon {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: rgba(218, 2, 14, 0.12);
+    border: 1px solid rgba(218, 2, 14, 0.25);
+    color: var(--manchester-red);
+}
+
+.contact-name { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+
+.contact-value { font-family: var(--font-mono); font-size: 13px; color: var(--text-secondary); }
+
+.contact-arrow { margin-left: auto; font-size: 13px; color: var(--text-muted); }
+
+.cta-card {
+    position: relative;
+    overflow: hidden;
+    padding: 36px 40px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-top: 2px solid var(--manchester-red);
+    border-radius: 16px;
+}
+
+.cta-card::after {
+    content: '';
+    position: absolute;
+    top: -90px; right: -90px;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(218, 2, 14, 0.22), transparent 65%);
+    pointer-events: none;
+}
+
+.cta-head { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+
+.cta-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--manchester-red);
+    box-shadow: 0 0 10px rgba(218, 2, 14, 0.7);
+}
+
+.cta-title { font-size: 21px; font-weight: 800; }
+
+.cta-desc {
+    font-size: 14.5px;
+    line-height: 1.85;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+}
+
+.cta-actions { display: flex; flex-wrap: wrap; gap: 14px; }
+
+/* ===== Modal ===== */
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.72);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+}
+
+.modal.open { display: flex; animation: modalIn 0.25s ease both; }
+
+@keyframes modalIn { from { opacity: 0; } to { opacity: 1; } }
+
+.modal-box {
+    position: relative;
+    width: min(92vw, 420px);
+    padding: 34px 32px;
+    text-align: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border-red);
+    border-radius: 18px;
+    box-shadow: 0 0 60px rgba(218, 2, 14, 0.25);
+    animation: modalPop 0.3s cubic-bezier(.2,.7,.2,1) both;
+}
+
+@keyframes modalPop {
+    from { opacity: 0; transform: scale(0.92) translateY(10px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-close {
+    position: absolute;
+    top: 12px; right: 14px;
+    width: 32px; height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    border-radius: 50%;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.modal-close:hover { color: #fff; }
+
+.modal-icon {
+    width: 64px; height: 64px;
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(218, 2, 14, 0.12);
+    border: 1px solid rgba(218, 2, 14, 0.35);
+    color: var(--manchester-red);
+}
+
+.modal-title { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+
+.modal-wechat {
+    font-family: var(--font-mono);
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    background: linear-gradient(90deg, #DA020E, #ffffff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.modal-actions { display: flex; gap: 12px; justify-content: center; }
+
+.modal-note {
+    margin-top: 20px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--text-muted);
+}
+
+.copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    background: var(--manchester-red);
+    color: #fff;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 0 16px var(--red-glow);
+    transition: all 0.3s;
+}
+
+.copy-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+.copy-btn.copied { background: #16a34a; box-shadow: 0 0 16px rgba(22, 163, 74, 0.5); }
+
+.modal-close-btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.modal-close-btn:hover { border-color: var(--manchester-red); }
+
+/* ===== 页脚 ===== */
+.footer {
+    position: relative;
+    z-index: 2;
+    padding: 26px 48px;
+    border-top: 1px solid var(--border-subtle);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 1024px) {
+    .view { padding: 104px 32px 64px; }
+    .nav { padding: 16px 28px; }
+    .hero { grid-template-columns: 1fr; gap: 32px; min-height: auto; }
+    .hero-visual { height: 420px; order: 2; }
+    .skills-grid { grid-template-columns: repeat(2, 1fr); }
+    .about-grid { grid-template-columns: 1fr; gap: 36px; }
+    .contact-grid { grid-template-columns: 1fr; gap: 28px; }
+    .project-tag-big { font-size: 64px; }
+}
+
+@media (max-width: 820px) {
+    .nav-links {
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+        padding: 22px 28px 26px;
+        background: #0a0a0a;
+        border-bottom: 1px solid var(--border-subtle);
+        display: none;
+    }
+    .nav-links.open { display: flex; }
+    .nav-link { font-size: 15px; }
+    .nav-cta { display: none; }
+    .nav-toggle { display: flex; }
+    .drawer-cta {
+        display: inline-flex;
+        margin-top: 4px;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        background: var(--manchester-red);
+        color: #fff;
+        font-family: var(--font-sans);
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 0 14px var(--red-glow);
+    }
+}
+
+@media (max-width: 768px) {
+    .view { padding: 96px 22px 56px; }
+    .nav { padding: 14px 22px; }
+    .nav-logo { font-size: 15px; gap: 10px; }
+    .block-title { margin-bottom: 30px; }
+    .hero h1 { font-size: clamp(30px, 8.5vw, 44px); }
+    .hero-desc { font-size: 14.5px; }
+    .hero-visual { height: 340px; }
+    .crest { width: min(320px, 100%); }
+    .hero-actions .btn-red,
+    .hero-actions .btn-outline { flex: 1 1 100%; justify-content: center; }
+    .projects-grid { grid-template-columns: 1fr; gap: 20px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .stat-num { font-size: 26px; }
+    .project-body { padding: 22px 22px 24px; }
+    .cta-card { padding: 28px 24px; }
+    .cta-title { font-size: 18px; }
+    .cta-actions .btn-red,
+    .cta-actions .btn-outline { flex: 1 1 100%; justify-content: center; }
+    .timeline-card { padding: 24px; }
+    .footer { padding: 22px; font-size: 11px; }
+    .cursor-glow { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+<!-- 背景装饰 -->
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="bg-code" id="bg-code" aria-hidden="true"></div>
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+<div class="cursor-glow" id="cursor-glow" aria-hidden="true"></div>
+
+<!-- 导航 -->
+<nav class="nav">
+    <button class="nav-logo" onclick="switchView('home')">
+        <span class="nav-dot"></span>
+        DENG XIAOJUN
+    </button>
+
+    <div class="nav-links" id="nav-links">
+        <button class="nav-link active" data-view="home" onclick="switchView('home')">首页</button>
+        <button class="nav-link" data-view="about" onclick="switchView('about')">关于</button>
+        <button class="nav-link" data-view="skills" onclick="switchView('skills')">技能</button>
+        <button class="nav-link" data-view="projects" onclick="switchView('projects')">项目</button>
+        <button class="nav-link" data-view="contact" onclick="switchView('contact')">联系</button>
+        <button class="drawer-cta" onclick="switchView('contact')">下载完整简历 (PDF)</button>
+    </div>
+
+    <button class="nav-cta" onclick="switchView('contact')">下载完整简历 (PDF)</button>
+
+    <button class="nav-toggle" id="nav-toggle" aria-label="菜单" onclick="toggleMenu()">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+</nav>
+
+<!-- ===== 视图一：首页 ===== -->
+<section class="view active" id="view-home">
+    <div class="container-wide hero">
+        <div class="hero-text">
+            <div class="code-label">// 虚拟现实技术应用 | 曼联铁粉</div>
+            <h1>一起创造下一个<br><em>沉浸式体验</em></h1>
+            <p class="hero-desc">
+                我是邓晓军。将红魔的团队协作精神融入代码。专注
+                <b>3D建模</b>、<b>引擎开发</b>、<b>数字孪生</b> 与 <b>互动小程序</b> 开发。
+            </p>
+            <div class="hero-actions">
+                <button class="btn-red" onclick="switchView('contact')">联系我 →</button>
+                <a class="btn-outline" href="https://github.com/lukex762" target="_blank" rel="noopener noreferrer">GitHub 主页</a>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="crest-halo"></div>
+            <div class="scan-line"></div>
+            <div class="particles" id="crest-particles"></div>
+            <div class="crest-wrap">
+                <svg class="crest" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" aria-label="曼联红魔队徽线框">
+                    <defs>
+                        <filter id="crest-glow" x="-60%" y="-60%" width="220%" height="220%">
+                            <feGaussianBlur stdDeviation="3.2" result="blur"></feGaussianBlur>
+                            <feMerge>
+                                <feMergeNode in="blur"></feMergeNode>
+                                <feMergeNode in="SourceGraphic"></feMergeNode>
+                            </feMerge>
+                        </filter>
+                        <path id="arc-top" d="M100 120 Q200 40 300 120" fill="none"></path>
+                        <path id="arc-bottom" d="M116 412 Q200 476 284 412" fill="none"></path>
+                    </defs>
+
+                    <g filter="url(#crest-glow)" fill="none" stroke="#DA020E" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round">
+                        <!-- 盾形轮廓 -->
+                        <path d="M60 62 L340 62 L340 300 Q340 388 200 468 Q60 388 60 300 Z"></path>
+                        <path d="M92 92 L308 92 L308 296 Q308 366 200 434 Q92 366 92 296 Z" opacity="0.5"></path>
+
+                        <!-- 恶魔头部 -->
+                        <circle cx="190" cy="198" r="34"></circle>
+                        <!-- 双角 -->
+                        <path d="M166 172 Q146 118 178 140"></path>
+                        <path d="M214 172 Q234 118 202 140"></path>
+                        <!-- 双眼 -->
+                        <path d="M174 196 L186 196"></path>
+                        <path d="M194 196 L206 196"></path>
+                        <!-- 獠牙 -->
+                        <path d="M180 218 L182 230"></path>
+                        <path d="M200 218 L198 230"></path>
+                        <!-- 身体 -->
+                        <path d="M190 232 L190 302"></path>
+                        <!-- 双翼 -->
+                        <path d="M184 252 Q118 220 94 302 Q130 292 150 322 Q170 302 184 322"></path>
+                        <path d="M196 252 Q262 220 286 302 Q250 292 230 322 Q210 302 196 322"></path>
+                        <!-- 持戟手臂 -->
+                        <path d="M206 268 Q240 260 262 240"></path>
+                        <!-- 三叉戟 -->
+                        <path d="M262 148 L262 352"></path>
+                        <path d="M240 176 Q262 148 284 176"></path>
+                        <path d="M238 174 L238 158"></path>
+                        <path d="M286 174 L286 158"></path>
+                        <path d="M262 148 L262 126"></path>
+                        <!-- 尾巴 -->
+                        <path d="M190 302 Q150 332 126 300 Q140 332 160 350"></path>
+                        <!-- 双腿 -->
+                        <path d="M176 322 L168 386"></path>
+                        <path d="M204 322 L212 386"></path>
+                    </g>
+
+                    <!-- 弧线文字 -->
+                    <g filter="url(#crest-glow)" font-family="Inter, sans-serif" font-weight="800" font-size="23">
+                        <text fill="#DA020E">
+                            <textPath href="#arc-top" startOffset="50%" textAnchor="middle">MANCHESTER</textPath>
+                        </text>
+                    </g>
+                    <g font-family="Inter, sans-serif" font-weight="800" font-size="21">
+                        <text fill="#DA020E">
+                            <textPath href="#arc-bottom" startOffset="50%" textAnchor="middle">UNITED</textPath>
+                        </text>
+                    </g>
+
+                    <!-- 装饰同心圆 -->
+                    <g fill="none" stroke="#DA020E" stroke-width="0.4" opacity="0.12">
+                        <circle cx="200" cy="250" r="196"></circle>
+                        <circle cx="200" cy="250" r="158"></circle>
+                        <circle cx="200" cy="250" r="120"></circle>
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 视图二：关于我 ===== -->
+<section class="view" id="view-about">
+    <div class="container">
+        <div class="code-label">// 关于我</div>
+        <h2 class="block-title">红魔精神，代码人生</h2>
+
+        <div class="about-grid">
+            <div class="about-text">
+                <p>
+                    我是 <b>邓晓军</b>，一名虚拟现实技术应用专业的学生。
+                    熟练掌握 <code>3ds Max</code>、<code>Blender</code> 等建模软件，
+                    精通 <code>Unity</code> 与 <code>虚幻引擎</code> 开发，
+                    热衷于用技术构建沉浸式的数字世界。
+                </p>
+
+                <div class="stats">
+                    <div>
+                        <div class="stat-num">6+</div>
+                        <div class="stat-label">核心软件精通</div>
+                    </div>
+                    <div>
+                        <div class="stat-num">20+</div>
+                        <div class="stat-label">独立Demo项目</div>
+                    </div>
+                    <div>
+                        <div class="stat-num">4</div>
+                        <div class="stat-label">年曼联死忠</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card timeline-card">
+                <h3>经历时间线</h3>
+                <div class="tl-item">
+                    <div class="tl-year">2027</div>
+                    <div class="tl-title">成都职业技术学院</div>
+                    <div class="tl-desc">虚拟现实技术应用专业（即将毕业）</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-year">2024</div>
+                    <div class="tl-title">入校成都职业技术学院</div>
+                    <div class="tl-desc">学习虚拟现实技术应用专业 / Unity 官方认证开发者</div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-year">2021</div>
+                    <div class="tl-title">开启曼联死忠生涯</div>
+                    <div class="tl-desc">红魔精神成为代码人生的底色</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 视图三：技术栈 ===== -->
+<section class="view" id="view-skills">
+    <div class="container">
+        <div class="code-label">// 技术栈</div>
+        <h2 class="block-title">我用什么构建虚拟世界</h2>
+
+        <div class="skills-grid">
+            <div class="card skill-card">
+                <div class="skill-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                        <path d="M3.27 6.96L12 12.01l8.73-5.05"></path>
+                        <path d="M12 22.08V12"></path>
+                    </svg>
+                </div>
+                <div class="skill-title">三维建模与制图</div>
+                <div class="skill-tech">3ds Max / Blender / CAD</div>
+                <div class="skill-desc">高精度模型搭建、工业图纸制作与材质渲染</div>
+                <div class="bar"><i style="--lvl:92%"></i></div>
+                <div class="bar-meta"><span>Proficiency</span><b>92%</b></div>
+            </div>
+
+            <div class="card skill-card">
+                <div class="skill-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 12h4M8 10v4M15 11h.01M18 13h.01"></path>
+                        <path d="M4 8h16a2 2 0 0 1 2 2v4a4 4 0 0 1-4 4h-1a4 4 0 0 1-3-1.33 2 2 0 0 0-2 0A4 4 0 0 1 9 18H8a4 4 0 0 1-4-4v-4a2 2 0 0 1 2-2z"></path>
+                    </svg>
+                </div>
+                <div class="skill-title">游戏引擎与XR</div>
+                <div class="skill-tech">Unity / Unreal Engine</div>
+                <div class="skill-desc">跨平台交互逻辑开发、VR/AR 场景搭建与实时渲染</div>
+                <div class="bar"><i style="--lvl:95%"></i></div>
+                <div class="bar-meta"><span>Proficiency</span><b>95%</b></div>
+            </div>
+
+            <div class="card skill-card">
+                <div class="skill-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="5" y="2" width="14" height="20" rx="2"></rect>
+                        <path d="M12 18h.01"></path>
+                    </svg>
+                </div>
+                <div class="skill-title">微信小游戏开发</div>
+                <div class="skill-tech">微信开发者工具 / JS</div>
+                <div class="skill-desc">轻量级游戏玩法开发、Canvas 渲染优化与上线发布</div>
+                <div class="bar"><i style="--lvl:85%"></i></div>
+                <div class="bar-meta"><span>Proficiency</span><b>85%</b></div>
+            </div>
+
+            <div class="card skill-card">
+                <div class="skill-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="6" cy="6" r="2"></circle>
+                        <circle cx="6" cy="18" r="2"></circle>
+                        <circle cx="18" cy="6" r="2"></circle>
+                        <path d="M6 8v8"></path>
+                        <path d="M8 6h8a2 2 0 0 1 2 2v6"></path>
+                    </svg>
+                </div>
+                <div class="skill-title">项目管理与协作</div>
+                <div class="skill-tech">GitHub / Git</div>
+                <div class="skill-desc">版本控制、代码托管、Issue 跟踪与团队协同开发</div>
+                <div class="bar"><i style="--lvl:88%"></i></div>
+                <div class="bar-meta"><span>Proficiency</span><b>88%</b></div>
+            </div>
+
+            <div class="card skill-card">
+                <div class="skill-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2a10 10 0 1 0 0 20c1.1 0 2-.9 2-2v-1a2 2 0 0 1 2-2h1.5a3.5 3.5 0 0 0 3.5-3.5c0-1.4-.6-2.6-1.6-3.5A8 8 0 0 0 12 2z"></path>
+                        <circle cx="7.5" cy="11" r="1"></circle>
+                        <circle cx="12" cy="7.5" r="1"></circle>
+                        <circle cx="16.5" cy="11" r="1"></circle>
+                        <circle cx="12" cy="16.5" r="1"></circle>
+                    </svg>
+                </div>
+                <div class="skill-title">UI/UX 与设计</div>
+                <div class="skill-tech">Figma / PS</div>
+                <div class="skill-desc">原型图设计、交互逻辑推演与视觉元素处理</div>
+                <div class="bar"><i style="--lvl:78%"></i></div>
+                <div class="bar-meta"><span>Proficiency</span><b>78%</b></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 视图四：项目实战 ===== -->
+<section class="view" id="view-projects">
+    <div class="container">
+        <div class="code-label">// 项目实战</div>
+        <h2 class="block-title">用代码铸造的虚拟赛场</h2>
+
+        <div class="projects-grid">
+            <div class="card">
+                <div class="project-thumb">
+                    <img src="assets/projects/dungeon.png" alt="类空洞骑士 黑暗地牢游戏画面" loading="lazy">
+                    <span class="project-locator">黑暗地牢</span>
+                </div>
+                <div class="project-body">
+                    <div class="tag-row">
+                        <span class="chip">[Unity]</span>
+                        <span class="chip">[C#]</span>
+                        <span class="chip">[2D像素]</span>
+                    </div>
+                    <div class="project-title">类空洞骑士 黑暗地牢游戏</div>
+                    <div class="project-desc">基于 Unity 开发的 2D 横版动作游戏，实现流畅的战斗判定、复杂的地图探索与独特的暗黑美术风格。</div>
+                    <div class="project-more">查看详情 →</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <a class="project-thumb clickable" href="project-dt.html">
+                    <video class="poster-frame" src="assets/projects/digital-twin.mp4" data-frame="2" muted playsinline preload="metadata"></video>
+                    <span class="project-locator">数字孪生</span>
+                    <span class="thumb-overlay"><span>播放演示视频 →</span></span>
+                </a>
+                <div class="project-body">
+                    <div class="tag-row">
+                        <span class="chip">[UE5]</span>
+                        <span class="chip">[数字孪生]</span>
+                        <span class="chip">[IoT]</span>
+                    </div>
+                    <div class="project-title">校园数字孪生可视化管理平台</div>
+                    <div class="project-desc">结合 CAD 图纸与 UE5 引擎，构建校园三维模型并实时接入数据，实现沉浸式的数字孪生管理原型。</div>
+                    <div class="project-more">查看详情 →</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="project-thumb">
+                    <div class="thumb-videos">
+                        <video src="assets/projects/wx-game-start.mp4" muted loop autoplay playsinline preload="metadata"></video>
+                        <video class="poster-frame" src="assets/projects/wx-game-demo.mp4" data-frame="3" muted playsinline preload="metadata"></video>
+                    </div>
+                    <span class="project-locator">微信小游戏</span>
+                </div>
+                <div class="project-body">
+                    <div class="tag-row">
+                        <span class="chip">[微信开发者工具]</span>
+                        <span class="chip">[JavaScript]</span>
+                        <span class="chip">[Canvas]</span>
+                    </div>
+                    <div class="project-title">微信小游戏开发实战</div>
+                    <div class="project-desc">独立开发并上线的微信小游戏，优化了渲染性能与操作手感，包含完整的关卡与得分系统。</div>
+                    <div class="project-more">查看详情 →</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <a class="project-thumb clickable" href="project-3d.html">
+                    <div class="carousel" data-carousel>
+                        <img class="slide active" src="assets/projects/living-room.png" alt="客厅场景渲染图">
+                        <img class="slide" src="assets/projects/clouds.png" alt="云朵场景渲染图">
+                        <img class="slide" src="assets/projects/shelf.png" alt="置物架场景渲染图">
+                        <div class="carousel-dots">
+                            <i class="active"></i><i></i><i></i>
+                        </div>
+                    </div>
+                    <span class="project-locator">3D建模</span>
+                    <span class="thumb-overlay"><span>进入模型展示页 →</span></span>
+                </a>
+                <div class="project-body">
+                    <div class="tag-row">
+                        <span class="chip">[3ds Max]</span>
+                        <span class="chip">[Blender]</span>
+                        <span class="chip">[Three.js]</span>
+                    </div>
+                    <div class="project-title">高精度 3D 模型与 Web 展示</div>
+                    <div class="project-desc">使用 3ds Max 与 Blender 进行高精度建模与材质渲染，结合 Three.js 实现浏览器端的在线交互展示。</div>
+                    <div class="project-more">查看详情 →</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 视图五：联系我 ===== -->
+<section class="view" id="view-contact">
+    <div class="container">
+        <div class="code-label">// 联系我</div>
+        <h2 class="block-title">一起创造下一个沉浸式体验</h2>
+
+        <div class="contact-grid">
+            <div class="contact-list">
+                <a class="contact-item" href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=355346@qq.com" target="_blank" rel="noopener noreferrer">
+                    <span class="contact-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                            <path d="M22 7l-10 6L2 7"></path>
+                        </svg>
+                    </span>
+                    <span>
+                        <span class="contact-name">Email</span>
+                        <span class="contact-value">355346@qq.com</span>
+                    </span>
+                    <span class="contact-arrow">↗</span>
+                </a>
+
+                <a class="contact-item" href="https://github.com/lukex762" target="_blank" rel="noopener noreferrer">
+                    <span class="contact-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                        </svg>
+                    </span>
+                    <span>
+                        <span class="contact-name">GitHub</span>
+                        <span class="contact-value">github.com/lukex762</span>
+                    </span>
+                    <span class="contact-arrow">↗</span>
+                </a>
+
+                <button class="contact-item" onclick="openWechatModal()">
+                    <span class="contact-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                        </svg>
+                    </span>
+                    <span>
+                        <span class="contact-name">微信</span>
+                        <span class="contact-value">casaimiro0223</span>
+                    </span>
+                    <span class="contact-arrow">查看 →</span>
+                </button>
+            </div>
+
+            <div class="cta-card">
+                <div class="cta-head">
+                    <span class="cta-dot"></span>
+                    <span class="cta-title">下一个项目，红魔出征</span>
+                </div>
+                <p class="cta-desc">
+                    如果你有 3D建模、VR/AR、数字孪生或小游戏开发相关的项目想法，
+                    或者只是想聊聊引擎开发与红魔往事，随时联系我。
+                </p>
+                <div class="cta-actions">
+                    <a class="btn-red" href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=355346@qq.com" target="_blank" rel="noopener noreferrer">发邮件 →</a>
+                    <button class="btn-outline" onclick="switchView('projects')">看我项目</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 页脚 -->
+<footer class="footer">
+    <span>© 2025 邓晓军 · Made with C# and lots of Manchester United</span>
+    <span>// Red Devil · Code Life</span>
+</footer>
+
+<!-- 微信 Modal -->
+<div class="modal" id="wechat-modal" onclick="closeWechatModal(event)">
+    <div class="modal-box" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="closeWechatModal()" aria-label="关闭">×</button>
+
+        <div class="modal-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+            </svg>
+        </div>
+
+        <div class="modal-title">我的微信号</div>
+        <div class="modal-wechat" id="wechat-id">casaimiro0223</div>
+
+        <div class="modal-actions">
+            <button class="copy-btn" id="copy-btn" onclick="copyWechat()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="9" y="9" width="13" height="13" rx="2"></rect>
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span id="copy-text">复制微信号</span>
+            </button>
+            <button class="modal-close-btn" onclick="closeWechatModal()">关闭</button>
+        </div>
+
+        <div class="modal-note">// 红魔出征，代码不停</div>
+    </div>
+</div>
+
+<script>
+/* ===== 背景代码装饰 ===== */
+(function buildCodeBackground() {
+    const box = document.getElementById('bg-code');
+    const lines = [
+        'void Update() { }', 'class Game : MonoBehaviour', 'using UnityEngine;', 'return new Vector3();',
+        'public static void Main()', 'async await import export', 'const MeshFilter mesh;', '0xDEADBEEF',
+        'Quaternion.LookRotation', 'Rigidbody.AddForce()', '// System initialized', '[0,0] [120,64]',
+        'if (hp <= 0) return;', 'git push origin main', 'UE5.Niagara.Emit()', 'void OnTriggerEnter()'
+    ];
+    const total = 26;
+    let html = '';
+    for (let i = 0; i < total; i++) {
+        const top = Math.round((i / total) * 100 + (i % 3) * 2);
+        const left = (i % 4) * 22 + (i % 5) * 3;
+        const delay = (i % 7) * 1.8;
+        const dur = 16 + (i % 5) * 3;
+        html += '<span style="top:' + top + '%;left:' + left + '%;animation-delay:' + delay + 's;animation-duration:' + dur + 's">' +
+                lines[i % lines.length] + '</span>';
+    }
+    box.innerHTML = html;
+})();
+
+/* ===== 飘浮数字粒子（队徽周围） ===== */
+(function buildCrestParticles() {
+    const box = document.getElementById('crest-particles');
+    const chars = ['0', '1', '0x1F', 'void', '{}', '[]', 'class', 'return', '<>', '//'];
+    let html = '';
+    for (let i = 0; i < 16; i++) {
+        const left = Math.random() * 100;
+        const top = Math.random() * 100;
+        const size = 10 + Math.random() * 9;
+        const dur = 6 + Math.random() * 6;
+        const delay = Math.random() * 5;
+        html += '<span style="left:' + left.toFixed(1) + '%;top:' + top.toFixed(1) + '%;font-size:' + size.toFixed(0) + 'px;' +
+                'animation-duration:' + dur.toFixed(1) + 's;animation-delay:' + delay.toFixed(1) + 's">' +
+                chars[i % chars.length] + '</span>';
+    }
+    box.innerHTML = html;
+})();
+
+/* ===== 背景 Canvas 粒子 ===== */
+(function initCanvasParticles() {
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    const chars = '01{}[]<>//voidclassusingreturnUnityUEVRXRC#'.split('');
+    let width = 0, height = 0;
+    let drops = [];
+
+    function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        const count = width < 768 ? 18 : 42;
+        drops = [];
+        for (let i = 0; i < count; i++) {
+            drops.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                speed: 0.25 + Math.random() * 0.9,
+                size: 9 + Math.random() * 7,
+                alpha: 0.15 + Math.random() * 0.45,
+                char: chars[Math.floor(Math.random() * chars.length)]
+            });
+        }
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, width, height);
+        ctx.font = '500 12px "JetBrains Mono", monospace';
+        for (const d of drops) {
+            ctx.font = '500 ' + d.size + 'px "JetBrains Mono", monospace';
+            ctx.fillStyle = 'rgba(218, 2, 14, ' + d.alpha + ')';
+            ctx.fillText(d.char, d.x, d.y);
+            d.y += d.speed;
+            if (d.y > height + 20) {
+                d.y = -20;
+                d.x = Math.random() * width;
+                d.char = chars[Math.floor(Math.random() * chars.length)];
+            }
+        }
+        requestAnimationFrame(draw);
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+    draw();
+})();
+
+/* ===== 鼠标光晕 ===== */
+(function initCursorGlow() {
+    const glow = document.getElementById('cursor-glow');
+    window.addEventListener('mousemove', function (e) {
+        glow.style.left = e.clientX + 'px';
+        glow.style.top = e.clientY + 'px';
+    });
+})();
+
+/* ===== SPA 视图切换 ===== */
+let currentView = 'home';
+
+function switchView(name) {
+    if (name === currentView) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+    }
+    const currentEl = document.getElementById('view-' + currentView);
+    const nextEl = document.getElementById('view-' + name);
+    if (!nextEl) return;
+
+    if (currentEl) currentEl.classList.remove('active');
+    nextEl.classList.add('active');
+    currentView = name;
+
+    document.querySelectorAll('.nav-link').forEach(function (link) {
+        link.classList.toggle('active', link.dataset.view === name);
+    });
+
+    const links = document.getElementById('nav-links');
+    if (links) links.classList.remove('open');
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleMenu() {
+    document.getElementById('nav-links').classList.toggle('open');
+}
+
+/* ===== 卡片鼠标光晕 ===== */
+document.addEventListener('mousemove', function (e) {
+    document.querySelectorAll('.card, .contact-item').forEach(function (card) {
+        const rect = card.getBoundingClientRect();
+        if (e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom) {
+            card.style.setProperty('--mx', (e.clientX - rect.left) + 'px');
+            card.style.setProperty('--my', (e.clientY - rect.top) + 'px');
+        }
+    });
+});
+
+/* ===== 项目缩略图：轮播与视频取帧 ===== */
+(function initProjectMedia() {
+    document.querySelectorAll('[data-carousel]').forEach(function (car) {
+        const slides = Array.from(car.querySelectorAll('.slide'));
+        const dots = Array.from(car.querySelectorAll('.carousel-dots i'));
+        let index = 0;
+        let timer = null;
+
+        function go(i) {
+            index = i;
+            slides.forEach(function (slide, n) { slide.classList.toggle('active', n === i); });
+            dots.forEach(function (dot, n) { dot.classList.toggle('active', n === i); });
+        }
+
+        function start() {
+            clearInterval(timer);
+            timer = setInterval(function () { go((index + 1) % slides.length); }, 3500);
+        }
+
+        dots.forEach(function (dot, n) {
+            dot.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                go(n);
+                start();
+            });
+        });
+
+        car.addEventListener('mouseenter', function () { clearInterval(timer); });
+        car.addEventListener('mouseleave', start);
+        start();
+    });
+
+    document.querySelectorAll('video.poster-frame').forEach(function (video) {
+        video.addEventListener('loadedmetadata', function () {
+            const target = Math.min(parseFloat(video.dataset.frame || '2'), (video.duration || 2) - 0.1);
+            try { video.currentTime = target > 0 ? target : 0; } catch (e) {}
+        });
+    });
+})();
+
+/* ===== 微信 Modal ===== */
+function openWechatModal() {
+    document.getElementById('wechat-modal').classList.add('open');
+}
+
+function closeWechatModal(event) {
+    if (event && event.target !== event.currentTarget) return;
+    document.getElementById('wechat-modal').classList.remove('open');
+    resetCopyButton();
+}
+
+document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+        const modal = document.getElementById('wechat-modal');
+        if (modal.classList.contains('open')) {
+            modal.classList.remove('open');
+            resetCopyButton();
+        }
+    }
+});
+
+function resetCopyButton() {
+    const btn = document.getElementById('copy-btn');
+    const text = document.getElementById('copy-text');
+    if (btn && text) {
+        btn.classList.remove('copied');
+        text.textContent = '复制微信号';
+    }
+}
+
+function copyWechat() {
+    const id = document.getElementById('wechat-id').textContent.trim();
+    const btn = document.getElementById('copy-btn');
+    const text = document.getElementById('copy-text');
+
+    function markCopied() {
+        btn.classList.add('copied');
+        text.textContent = '已复制';
+        setTimeout(resetCopyButton, 2200);
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(id).then(markCopied).catch(function () {
+            fallbackCopy(id, markCopied);
+        });
+    } else {
+        fallbackCopy(id, markCopied);
+    }
+}
+
+function fallbackCopy(value, done) {
+    const ta = document.createElement('textarea');
+    ta.value = value;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+        document.execCommand('copy');
+        done();
+    } catch (err) {
+        alert('复制失败，请手动复制：' + value);
+    }
+    document.body.removeChild(ta);
+}
+</script>
+</body>
 </html>
